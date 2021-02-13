@@ -17,6 +17,9 @@ var testData = {
     ]
 }
 
+module.exports = {
+    getCalendar:getCalendar
+}
 
 /***
  * Generate an ICS-compatible timestamp from a unix timestamp
@@ -54,5 +57,11 @@ function generateCalendarString(course) {
     return out;
 }
 
-
-console.log(generateCalendarString(testData));
+/**
+ * Get the course calendar in ICS format
+ * @param {string} id The id of the course
+ * @returns {string} The ICS data as a string
+ */
+function getCalendar(id){
+    return generateCalendarString(testData);
+}
