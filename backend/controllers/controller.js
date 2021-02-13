@@ -24,11 +24,12 @@ exports.add_a_course = function(req, res) {
 
 
 exports.get_course = function(req, res) {
-  Task.findById(req.params.taskId, function(err, task) {
+  return req.params.courseId;
+  /* Task.findById(req.params.taskId, function(err, task) {
     if (err)
       res.send(err);
     res.json(task);
-  });
+  }); */
 };
 
 
