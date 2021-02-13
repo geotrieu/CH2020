@@ -1,5 +1,6 @@
 /**
  * @typedef  {object} Assignment
+ * @property {string} UUID
  * @property {string} name
  * @property {numner} timestamp
  * @property {number} weight
