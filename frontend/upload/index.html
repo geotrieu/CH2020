@@ -3,7 +3,9 @@
 <html>
   <head>
     <title>UI - Upload</title>
+    <link rel="stylesheet" type="text/css" href="../fonts.css" />
     <link rel="stylesheet" type="text/css" href="../style.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
     <div id="topBar">
@@ -29,7 +31,32 @@
         </div>
       </div>
 
-      <div id="content">content</div>
+      <div id="content">
+        <div id="formWrapper">
+          <div class="horizontal">
+            <button class="button autofillButton">Autofill from PDF</button>
+            <input type="file" accept=".pdf" id="fileInputButton" />
+          </div>
+
+          <div id="form">
+            <div>
+              <input type="text" id="courseName" placeholder="Course name" />
+              <input type="text" id="courseCode" placeholder="Course code" />
+              <input type="text" id="uni" placeholder="University" />
+            </div>
+            
+            <div id="assignments">
+              <h2>Assignments</h2>
+              <table>
+                
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="pdfViewer">
+
+        </div>
+      </div>
     </div>
   </body>
 </html>

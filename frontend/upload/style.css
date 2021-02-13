@@ -1,0 +1,24 @@
+.autofillButton {
+  position: relative;
+  cursor: pointer;
+}
+
+.horizontal {
+  display: flex;
+  align-items: center;
+}
+
+#fileInputButton {
+  flex: 1;
+  background-color: transparent;
+  box-shadow: none;
+  padding: calc((45px - 21px) / 2) 15px;
+}
+
+#content {
+  flex-direction: row;
+}
+
+#formWrapper {
+  flex: 1;
+}

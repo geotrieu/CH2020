@@ -52,6 +52,7 @@ function updateTable(data) {
 
 function noDataReturned() {
   let el = document.getElementById("resultsTableWrapper");
+  document.getElementById("resultCount").innerHTML = "(0 results)";
 
   el.innerHTML = `
     <div id="noResultsWrapper">
@@ -79,7 +80,7 @@ function display(data) {
     `;
   }
 
-  console.log(rows);
+  document.getElementById("resultCount").innerHTML = `(${data.length} result${data.length == 1 ? '' : 's'})`;
 
   el.innerHTML = `
     <table id="resultsTable" cellspacing=0>
