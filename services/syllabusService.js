@@ -88,14 +88,10 @@ function parseAssessments() {
     return assessments;
 }
 
-async function run() {
+export function getAssessments() {
     await parsePDF;
-
     // assumes the grading is in the first result for "ASSESSMENT..."
     //console.log(assessmentTextBlocks[0]);
     if (assessmentTextBlocks == 0) return false; // syllabus not supported
-    const assessments = parseAssessments();
-    console.log(assessments);
+    return parseAssessments();
 }
-
-run();
