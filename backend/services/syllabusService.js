@@ -3,15 +3,13 @@ const moment = require("moment");
 
 const termStart = moment("20210111", "YYYYMMDD");
 
-var rows = {}; // indexed by y-position
-var assessmentTextBlocks = [];
-
 function extractAssessments() {
     // Look for an "Assessment" Line
     const assessmentRegex = /ASSESSMENT.*/;
     const exitAssessmentRegex = /^[A-Z ]+$/;
 
     let currentBlock = [];
+    let assessmentTextBlocks = [];
     let inAssessment = false;
 
     Object.keys(rows) // => array of y-positions (type: float)
@@ -40,25 +38,28 @@ function extractAssessments() {
                 }
             }
         });
+
+    return assessmentTextBlocks;
 }
 
-let parsePDF = new Promise(function (resolve, reject) {
-    new pdfreader.PdfReader().parseFileItems(
-        "./pdfs/ELEC270.pdf",
-        function (err, item) {
+function parsePDF(path) {
+    return new Promise(function (resolve, reject) {
+        let rows = {}; // indexed by y-position
+        let assessmentTextBlock = [];
+        new pdfreader.PdfReader().parseFileItems(path, function (err, item) {
             if (!item) {
                 // end of file
-                resolve("parsed PDF");
+                resolve(assessmentTextBlock);
             } else if (item.page) {
-                extractAssessments();
+                assessmentTextBlock.push(extractAssessments());
                 rows = {}; // clear rows for next page
             } else if (item.text) {
                 // accumulate text items into rows object, per line
                 (rows[item.y] = rows[item.y] || []).push(item.text);
             }
-        }
-    );
-});
+        });
+    });
+}
 
 function getDateFromWeekNumber(day, week) {
     let date = moment(termStart);
@@ -67,7 +68,7 @@ function getDateFromWeekNumber(day, week) {
     return date;
 }
 
-function parseAssessments() {
+function parseAssessments(assessmentTextBlocks) {
     const weekFormatRegex = /(.*) *(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday).*Week *([0-1]{0,1}[0-9]) *([0-9]{1,2})/i;
 
     const assessments = [];
@@ -88,10 +89,10 @@ function parseAssessments() {
     return assessments;
 }
 
-export function getAssessments() {
-    await parsePDF;
+export async function getAssessments(path) {
+    const assessmentTextBlocks = await parsePDF(path);
     // assumes the grading is in the first result for "ASSESSMENT..."
     //console.log(assessmentTextBlocks[0]);
-    if (assessmentTextBlocks == 0) return false; // syllabus not supported
-    return parseAssessments();
+    if (assessmentTextBlocks.length == 0) return false; // syllabus not supported
+    return parseAssessments(assessmentTextBlocks);
 }
