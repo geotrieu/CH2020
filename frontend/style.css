@@ -1,9 +1,15 @@
 html, body {
+  --blue: rgb(56, 159, 255);
+  --border-radius: 5px;
+  --box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  --background-color: rgb(246, 248, 250);
+  --hover-color: rgba(0, 0, 0, 0.1);
+
   height: 100%;
   width: 100%;
   margin: 0;
-  background-color: rgb(247, 244, 241);
-  font-family: sans-serif;
+  background-color: var(--background-color);
+  font-family: 'Lato', sans-serif;
   font-weight: lighter;
 }
 
@@ -12,12 +18,24 @@ body {
   flex-direction: column;
 }
 
-h1 {
-  font-weight: normal;
-}
-
 a {
   color: inherit;
+}
+
+input {
+  background-color: white;
+  border: none;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.button {
+  padding: 15px;
+  background-color: var(--blue);
+  border: none;
+  border-radius: var(--border-radius);
+  color: white;
 }
 
 .icon-svg {
@@ -33,6 +51,12 @@ a {
   margin: 10px 20px;
 }
 
+#content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 #navWrapper .navItem {
   padding: 10px;
   cursor: pointer;
@@ -45,12 +69,12 @@ a {
 }
 
 #navWrapper .navItem:hover {
-  background-color: lightgrey;
+  background-color: var(--hover-color);
 }
 
 #navWrapper .selectedNavItem {
   background-color: white !important;
-  box-shadow: lightgrey 0 2px 2px 1px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
 
 #contentWrapper {

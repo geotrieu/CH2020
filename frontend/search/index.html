@@ -3,6 +3,7 @@
 <html>
   <head>
     <title>UI - Search</title>
+    <link rel="stylesheet" type="text/css" href="../fonts.css" />
     <link rel="stylesheet" type="text/css" href="../style.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
@@ -32,8 +33,24 @@
 
       <div id="content">
 
+        <div id="searchArea">
+          <input type="text" id="courseName" placeholder="Course name" />
+          <input type="text" id="courseCode" placeholder="Course code" />
+          <input type="text" id="uni" placeholder="University" />
+          <input type="text" id="uploader" placeholder="Uploader" />
+          <button class="button" id="searchButton">Search</button>
+        </div>
 
+        <div id="resultsArea">
+          <h2>Results</h2>
+          <p id="resultCount">(0 results)</p>
+
+          <div id="resultsTableWrapper">
+          </div>
+        </div>
       </div>
     </div>
+
+    <script src="app.js"></script>
   </body>
 </html>
