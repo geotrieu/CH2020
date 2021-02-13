@@ -26,7 +26,7 @@ var testData = {
 function getTimestamp(unix) {
     let date = new Date(unix);
     // Appending 0 then slicing by -2 will ensure leading zero is present when needed
-    return `${date.getUTCFullYear()}${("0"+date.getUTCMonth()).slice(-2)}${("0"+date.getUTCDate()).slice(-2)}T${("0"+date.getUTCHours()).slice(-2)}${("0"+date.getUTCMinutes()).slice(-2)}${("0"+date.getUTCSeconds()).slice(-2)}Z`
+    return `${date.getUTCFullYear()}${("0"+(date.getUTCMonth()+1)).slice(-2)}${("0"+date.getUTCDate()).slice(-2)}T${("0"+date.getUTCHours()).slice(-2)}${("0"+date.getUTCMinutes()).slice(-2)}${("0"+date.getUTCSeconds()).slice(-2)}Z`
 }
 
 
@@ -38,7 +38,7 @@ function getTimestamp(unix) {
 function generateCalendarString(course) {
     let out = `BEGIN:VCALENDAR\nVERSION:2.0\n`;
     out += `PRODID:~//CH2020-50//NONSGML TestCalendar-${course.id}//EN\n`;
-    out += `X-WR-CALNAME:${course.code} Calendar`
+    out += `X-WR-CALNAME:${course.code} Calendar\n`
     for (let assignment of course.assignments) {
         console.log(assignment);
         let timestamp = getTimestamp(assignment.timestamp);
