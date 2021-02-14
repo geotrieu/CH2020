@@ -43,6 +43,15 @@ input {
     box-shadow: var(--box-shadow);
 }
 
+select { 
+    background-color: white;
+    border: none;
+    padding: 0 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    height: 40px;
+}
+
 #title {
     margin: 30px 0;
 }
