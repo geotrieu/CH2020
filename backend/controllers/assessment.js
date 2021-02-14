@@ -8,7 +8,12 @@ exports.getAllAssessments = function (req, res) {
 };
 
 exports.addAssessment = function (req, res) {
-    const assessment = new Assessment(req.body);
+    const assessment = new Assessment({
+        item: req.body.item,
+        date: req.body.date,
+        weight: req.body.weight,
+        course: req.body.course,
+    });
     assessment.save(function (err, task) {
         if (err) res.send(err);
         res.json(task);
