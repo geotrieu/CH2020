@@ -29,6 +29,10 @@ exports.add_course = function (req, res) {
         res.json(course);
     });
 
+    assessments = req.body.assessments;
+    for (var i = 0; i < assessments.length; i++) {
+        assessments[0]["course"] = course_id;
+    }
     Assessment.insertMany(req.body.assessments);    
 };
 
