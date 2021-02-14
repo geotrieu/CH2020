@@ -4,24 +4,36 @@ window.onload = function() {
   const API_ENDPOINT = "http://localhost:3000/api";
   const COURSES_PATH = "courses";
 
+  loadAll();
+
   function setData(_data) {
     data = _data;
     updateTable(data);
   }
 
-  fetch(`${API_ENDPOINT}/${COURSES_PATH}`).then(res => {
-    return res.json();
-  }).then(data => {
-    setData(data.sort((a,b) => {
-      if (a.course_code < b.course_code) return -1;
-      else if (a.course_code > b.course_code) return 1;
-      return 0;
-    }));
-  }).catch(e => {
-    console.error(e);
-  });
+  function loadAll() {
+    fetch(`${API_ENDPOINT}/${COURSES_PATH}`).then(res => {
+      return res.json();
+    }).then(data => {
+      setData(data.sort((a,b) => {
+        if (a.course_code < b.course_code) return -1;
+        else if (a.course_code > b.course_code) return 1;
+        return 0;
+      }));
+    }).catch(e => {
+      console.error(e);
+    });
+  }
 
-  document.getElementById("searchButton").onclick = function() {
+  document.getElementById("clearQueries").onclick = function(event) {
+    event.preventDefault();
+    loadAll();
+    document.getElementById('queryForm').reset();
+  }
+
+  document.getElementById("searchButton").onclick = function(event) {
+    event.preventDefault();
+
     let courseCode = document.getElementById("courseCode").value;
     let university = document.getElementById("uni").value;
     let term = document.getElementById("selectTerm").value;
@@ -167,12 +179,17 @@ window.onload = function() {
     let year = (new Date()).getFullYear();
     let nextSeason = (seasonId < 3) ? seasons[seasonId + 1] : seasons[0];
     let nextYear = year + (seasonId == 3 ? 1 : 0);
+    let prevSeason = (seasonId > 1) ? seasons[seasonId - 1] : seasons[3];
+    let prevYear = year - (seasonId == 0 ? 1 : 0);
 
     let curOption = document.createElement('OPTION');
     curOption.innerText = `${curSeason} ${year}`;
     let nextOption = document.createElement('OPTION');
     nextOption.innerText = `${nextSeason} ${nextYear}`;
+    let prevOption = document.createElement('OPTION');
+    prevOption.innerText = `${prevSeason} ${prevYear}`;
 
+    e.appendChild(prevOption);
     e.appendChild(curOption);
     e.appendChild(nextOption);
 
