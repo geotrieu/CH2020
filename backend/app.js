@@ -1,18 +1,20 @@
-var express = require("express"),
-    app = express(),
-    port = process.env.PORT || 3000;
-    mongoose = require('mongoose'),
-    Task = require('./models/course'), //created model loading here
-    bodyParser = require('body-parser');
 
-mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost/Tododb');
+const mongoose = require("mongoose");
+const config = require("config");
+const express = require("express");
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app = express();
+port = process.env.PORT || 3000;
 
-var routes = require('./routes/routes'); //importing route
-routes(app); //register the route
+require("./routes/routes")(app);
+
+mongoose.connect(
+    config.get("database.connection") + config.get("database.database"),
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    }
+);
 
 app.listen(port);
 
