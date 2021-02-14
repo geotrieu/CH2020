@@ -15,7 +15,8 @@ window.onload = function () {
 
     document.getElementById("submitButton").onclick = async function (e) {
         e.preventDefault();
-        let link = await submitCourse();
+        let res = await submitCourse();
+        let link = `${apiEndpoint}/ical/${res.course_id}`;
         showModal(link);
 
         document.getElementById("copyLink").onclick = function () {
@@ -89,7 +90,7 @@ window.onload = function () {
     function showModal(link) {
         let modal = document.getElementById("modal");
         modal.classList.add("showModal");
-        
+
         document.getElementById("link").innerText = link;
     }
 
