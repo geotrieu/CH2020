@@ -1,34 +1,35 @@
 const mongoose = require("mongoose");
-Task = mongoose.model("Tasks", {});
+Course = mongoose.model("Courses", {});
+
+exports.list_all_course_entries = function (req, res) {
+    Course.find({ Course_code: req.params.courseCode , University_name: req.params.university}, function (err, course) {
+        if (err) res.send(err);
+        res.json(course);
+    });
+};
 
 exports.list_all_courses = function (req, res) {
-    Task.find({}, function (err, task) {
+    Course.find({}, function (err, course) {
         if (err) res.send(err);
-        res.json(task);
+        res.json(course);
     });
 };
 
 exports.add_a_course = function (req, res) {
-    var new_task = new Task(req.body);
-    new_task.save(function (err, task) {
+    var new_course = new Course(req.body);
+    new_course.save(function (err, course) {
         if (err) res.send(err);
-        res.json(task);
+        res.json(course);
     });
 };
 
-exports.get_course = function (req, res) {
-    Task.findById(req.params.taskId, function (err, task) {
-        if (err) res.send(err);
-        res.json(task);
-    });
-};
 
 exports.delete_course = function (req, res) {
-    Task.remove(
+    Course.remove(
         {
-            _id: req.params.taskId,
+            _id: req.params.courseId,
         },
-        function (err, task) {
+        function (err, course) {
             if (err) res.send(err);
             res.json({ message: "Course successfully deleted" });
         }
