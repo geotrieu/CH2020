@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>UI - Upload</title>
+    <link rel="stylesheet" type="text/css" href="../fonts.css" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div id="contentWrapper">
+      <div id="navWrapper">
+        <p id="title">duedate</p>
+        <a href="../search/index.html">
+          <div class="navItem" id="toSearch">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-svg">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </div>
+        </a>
+        <div class="navItem selectedNavItem" id="toUpload">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-svg">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+        </div>
+      </div>
+
+      <div id="page">
+        <h1>Upload</h1>
+
+        <div id="content">
+          <div id="formWrapper">
+            <div class="horizontal">
+              <button class="button autofillButton">Autofill from PDF</button>
+              <input type="file" accept=".pdf" id="fileInputButton" />
+            </div>
+
+            <hr width="100%" size="1px" />
+
+            <form>
+              <div id="form">
+                <div id="headerFields">
+                  <input type="text" id="courseName" placeholder="Course name" />
+                  <input type="text" id="courseCode" placeholder="Course code" />
+                  <input type="text" id="uni" placeholder="University" />
+                </div>
+                
+                <div id="assignments">
+                  <h2>Assignments</h2>
+
+                  <div id="assignmentsTableWrapper">
+
+                    <table id="assignmentsTable" cellspacing=0>
+                      <tr>
+                        <th class="name">Name</th>
+                        <th class="deadline">Deadline</th>
+                        <th class="weight">Weight</th>
+                        <th><img src="../assets/trash.svg" id="deleteAll" /></th>
+                      </tr>
+                      
+                      <tbody id="tableBody"></tbody>
+
+                      <tr id="addNewRow">
+                        <td colspan="5">
+                          <button type="button" class="button" id="addNew">Add new row</button>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div id="submitWrapper">
+                <input type="submit" class="button" value="Generate calendar" />
+              </div>
+            </div>
+          </form>
+
+          <div id="pdfViewer">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>UI - Search</title>
+    <link rel="stylesheet" type="text/css" href="../fonts.css" />
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div id="contentWrapper">
+      <div id="navWrapper">
+        <p id="title">duedate</p>
+        <div class="navItem selectedNavItem" id="toSearch">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-svg">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+        <a href="../upload/index.html">
+          <div class="navItem" id="toUpload">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-svg">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      <div id="page">
+        <h1>Search</h1>
+        <div id="searchArea">
+          <input type="text" id="courseName" placeholder="Course name" />
+          <input type="text" id="courseCode" placeholder="Course code" />
+          <input type="text" id="uni" placeholder="University" />
+          <input type="text" id="uploader" placeholder="Uploader" />
+          <button class="button" id="searchButton">Search</button>
+        </div>
+
+        <div id="resultsArea">
+          <h2>Results</h2>
+          <p id="resultCount">(0 results)</p>
+
+          <div id="resultsTableWrapper">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
