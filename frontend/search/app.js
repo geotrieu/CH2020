@@ -1,5 +1,5 @@
 window.onload = function() {
-  const API_ENDPOINT = "http://localhost:3000";
+  const API_ENDPOINT = "http://localhost:3000/api";
   const COURSES_PATH = "courses";
   let data = [];
 
