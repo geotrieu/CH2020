@@ -11,7 +11,7 @@
   flex-direction: column;
 }
 
-#searchArea input {
+#searchArea input, #searchArea select {
   margin-right: 15px;
 }
 
@@ -21,6 +21,10 @@ p {
 
 h2 {
   margin-bottom: 5px;
+}
+
+.default {
+  color: grey;
 }
 
 #resultCount {
