@@ -112,7 +112,6 @@ window.onload = function() {
           <td>${entry.course_name}</td>
           <td>${entry.university_name}</td>
           <td>${entry.term}</td>
-          <td>0</td>
         </tr>
       `;
     }
@@ -126,7 +125,6 @@ window.onload = function() {
           <th class="tableHeader" id="th-course_name">Course Name</th>
           <th class="tableHeader" id="th-university_name">University</th>
           <th class="tableHeader" id="th_term">Term</th>
-          <th>Subscriptions</th>
         </tr>
         ${rows}
       </table>
