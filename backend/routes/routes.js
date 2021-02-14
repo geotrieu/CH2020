@@ -8,29 +8,29 @@ module.exports = function (app) {
     var uploadController = require("../controllers/uploadController")
 
     // doDates Routes
-    app.route("/courses")
+    app.route("/api/courses")
         .get(courseController.list_all_courses)
         .post(courseController.add_course);
     
-    app.route("/courses/:courseCode&:university")
+    app.route("/api/courses/:courseCode&:university")
         .get(courseController.list_all_course_entries)
 
-    app.route("/assessments")
+    app.route("/api/assessments")
         .get(assessmentController.getAllAssessments)
         .post(assessmentController.addAssessment);
 
-    app.route("/assessments/:courseId")
+    app.route("/api/assessments/:courseId")
         .get(assessmentController.getCourseAssessments)
 
-    app.route("/assessments/pdf/:fileName")
+    app.route("/api/assessments/pdf/:fileName")
         .get(assessmentController.getPDFAssessment);
 
-    app.route("/ical")
+    app.route("/api/ical")
         .get(calendarController.getICS);
     
-    app.route("/ical/:course")
+    app.route("/api/ical/:course")
         .get(calendarController.getICS);
 
-    app.route("/uploadSyllabus") // query string needs code=[course code]
+    app.route("/api/uploadSyllabus") // query string needs code=[course code]
         .post(multer.any(), uploadController.handleSyllabus);
 };
