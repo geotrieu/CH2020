@@ -86,8 +86,7 @@ window.onload = function () {
                 nameRequired &&
                 codeRequired &&
                 universityRequired &&
-                termRequired &&
-                valid
+                termRequired
             )
         )
             return;
@@ -95,7 +94,8 @@ window.onload = function () {
         let res = await submitCourse();
         // console.log(res);
         // let link = `${apiEndpoint}/ical/${res.course_id}`;
-        showModal("ldghslhgsgdsjgs");
+        let link = `${apiEndpoint}/ical/${res.course_id}`;
+        showModal(link);
 
         document.getElementById("copyLink").onclick = function () {
             let link = document.getElementById("link").innerText;
