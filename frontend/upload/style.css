@@ -107,17 +107,25 @@ hr {
     box-sizing: border-box;
 }
 
+#assignmentsTable .deleteCol {
+    padding: 0;
+}
+
 #assignmentsTable #deleteAll,
 #assignmentsTable .delete {
     cursor: pointer;
-    /* height: 43px;
-    width: 43px;
-    border-radius: var(--border-radius); */
+    border-radius: var(--border-radius);
+    padding: 10px;
 }
 
 #assignmentsTable #deleteAll:hover,
 #assignmentsTable .delete:hover {
     background-color: var(--hover-color);
+}
+
+#assignmentsTable #deleteAll img,
+#assignmentsTable .delete img{
+    display: block;
 }
 
 #assignmentsTable .percent {
