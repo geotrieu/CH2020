@@ -28,6 +28,6 @@ module.exports = function (app) {
     app.route("/ical/:course")
         .get(calendarController.getICS);
 
-    app.route("/uploadSyllabus")
+    app.route("/uploadSyllabus") // query string needs code=[course code]
         .post(multer.any(), uploadController.handleSyllabus);
 };
