@@ -4,7 +4,7 @@ DoDates is team 50's submission for Calgary Hacks 2020. It is a website that all
 Search from available courses
 ![Courses page](https://imgur.com/dExqXgx.png)
 Upload a new course if not offered to your liking
-![Upload page](https://i.imgur.com/Jwv02Xk.png)
+![Upload page](https://imgur.com/dzhqtvE.png)
 
 ## Inspiration
 Over the course of the past year, students have been facing new challenges as they have adapted to the reality of online education. One problem that has become relevant is the increase in apathy and lack of motivation amongst students, and one of the root causes for this is the lack of organization and structure when it comes to school. This is what inspired us to create DoDate - to allow students to stay organized and on top of their school work and deadlines.
