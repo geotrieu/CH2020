@@ -1,6 +1,6 @@
 "use strict";
 module.exports = function (app) {
-    var collection = require("../controllers/controller");
+    var collection = require("../controllers/course");
     var assessmentController = require("../controllers/assessment");
     var calendarController = require("../controllers/calendar")
 
@@ -11,7 +11,7 @@ module.exports = function (app) {
 
     app.route("/courses/:courseId")
         .get(collection.get_course)
-        
+
     app.route("/assessments")
         .get(assessmentController.getAllAssessments)
         .post(assessmentController.addAssessment);
