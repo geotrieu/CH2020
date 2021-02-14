@@ -21,7 +21,7 @@ window.onload = function () {
         let codeRequired = document.getElementById("courseCode").value != "";
         let universityRequired =
             document.getElementById("university").value != "";
-        let termRequired = document.getElementById("term").value != "";
+        let termRequired = document.getElementById("selectTerm").value != "";
 
         if (!nameRequired) {
             document.getElementById("courseName").classList.add("required");
@@ -39,9 +39,9 @@ window.onload = function () {
             document.getElementById("university").classList.remove("required");
         }
         if (!termRequired) {
-            document.getElementById("term").classList.add("required");
+            document.getElementById("selectTerm").classList.add("required");
         } else {
-            document.getElementById("term").classList.remove("required");
+            document.getElementById("selectTerm").classList.remove("required");
         }
 
         if (
@@ -108,7 +108,7 @@ window.onload = function () {
             params.get("courseCode") || "";
         document.getElementById("university").value =
             params.get("university") || "";
-        document.getElementById("term").value = params.get("term") || "";
+        document.getElementById("selectTerm").value = params.get("term") || "";
 
         let id = params.get("id");
         if (id) {
@@ -168,7 +168,7 @@ window.onload = function () {
             course_name: document.getElementById("courseName").value,
             course_code: document.getElementById("courseCode").value,
             university_name: document.getElementById("university").value,
-            term: document.getElementById("term").value,
+            term: document.getElementById("selectTerm").value,
             assessments: [],
         };
 
