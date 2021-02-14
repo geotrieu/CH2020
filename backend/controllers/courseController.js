@@ -3,11 +3,20 @@ const { Assessment } = require("../models/assessmentModel");
 const Course = require("../models/courseModel");
 
 exports.list_all_course_entries = function (req, res) {
+    let query = {
+        course_code: req.params.courseCode.toUpperCase()
+    };
+
+    if(req.query.university != undefined){
+        query.university_name = req.query.university;
+    }
+    if(req.query.term != undefined){
+        query.term = req.query.term;
+    }
+    console.log(query);
+    
     Course.find(
-        {
-            course_code: req.params.courseCode,
-            university_name: req.params.university,
-        },
+        query,
         function (err, course) {
             if (err) res.send(err);
             res.json(course);
