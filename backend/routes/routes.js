@@ -11,8 +11,7 @@ module.exports = function (app) {
 
     app.route("/courses/:courseId")
         .get(collection.get_course)
-        .post(collection.delete_course);
-
+        
     app.route("/assessments")
         .get(assessmentController.getAllAssessments)
         .post(assessmentController.addAssessment);
