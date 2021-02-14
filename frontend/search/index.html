@@ -33,10 +33,13 @@
       <div id="page">
         <h1>Search</h1>
         <div id="searchArea">
-          <input type="text" id="courseCode" placeholder="Course code" maxlength="10" />
-          <input type="text" id="uni" placeholder="University" maxlength="20" />
-          <select id="selectTerm" class="default"></select>
-          <button class="button" id="searchButton">Search</button>
+          <form id="queryForm">
+            <input type="text" id="courseCode" placeholder="Course code" maxlength="10" />
+            <input type="text" id="uni" placeholder="University" maxlength="20" />
+            <select id="selectTerm" class="default"></select>
+            <button class="button" id="searchButton" type="submit">Search</button>
+            <button class="button" id="clearQueries" type="clear">Clear Search</button>
+          </form>
         </div>
 
         <div id="resultsArea">

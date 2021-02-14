@@ -102,3 +102,13 @@ h2 {
   background: url(../assets/arrow-down.svg) no-repeat right 10px center !important;
   background-color: transparent !important;
 }
+
+#clearQueries {
+  color: tomato;
+  background-color: transparent;
+  margin-left: 15px;
+}
+
+#clearQueries:hover {
+  background-color: var(--hover-color);
+}
