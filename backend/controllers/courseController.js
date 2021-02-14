@@ -27,8 +27,13 @@ exports.add_course = function (req, res) {
     new_course.save(function (err, course) {
         if (err) res.send(err);
         res.json(course);
+        course_id = course["_id"];
     });
 
+    assessments = req.body.assessments;
+    for (var i = 0; i < assessments.length; i++) {
+        assessments[0]["course"] = "60287a3b17b339321c1ec057";
+    }
     Assessment.insertMany(req.body.assessments);    
 };
 
