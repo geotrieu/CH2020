@@ -5,8 +5,7 @@ exports.getICS = async function(req, res) {
     if(req.params.course != undefined){
         let body = await getCalendar(req.params.course);
         if(body != null){
-            // TODO: Un-comment
-            // res.set("Content-Type", "text/calendar");
+            res.set("Content-Type", "text/calendar");
             res.send(body);
         } else {
             res.set("Content-Type", "text/html");
@@ -37,16 +36,10 @@ function getTimestamp(unix) {
  * @returns {string} String representation of calendar in ICS format
  */
 function generateCalendarString(course, assesments) {
-    console.log(course);
-    console.log(course.id);
-    console.log(course._id);
-    console.log(course.Course_code);
-    console.log(course.Course_name)
     let out = `BEGIN:VCALENDAR\nVERSION:2.0\n`;
-    out += `PRODID:~//CH2020-50//NONSGML ${course.Course_code}-${course.id}//EN\n`;
-    out += `X-WR-CALNAME:${course.Course_code} Calendar\n`
+    out += `PRODID:~//CH2020-50//NONSGML ${course.course_code}-${course.id}//EN\n`;
+    out += `X-WR-CALNAME:${course.course_code} Calendar\n`
     for (let assessment of assesments) {
-        console.log(assessment);
         let timestamp = getTimestamp(assessment.date);
         out += `BEGIN:VEVENT\n`;
         out += `UID:${assessment._id}\n`;

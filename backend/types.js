@@ -8,8 +8,8 @@
  * 
  * @typedef  {object} Course
  * @property {string} _id
- * @property {string} Course_code
- * @property {string} Course_name
+ * @property {string} course_code
+ * @property {string} course_name
  * @property {string} University_name
  * @property {number} Term
  */
