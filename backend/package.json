@@ -1,4 +1,20 @@
 {
+<<<<<<< HEAD
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.29.1",
+    "mongoose": "^5.11.16",
+    "pdfreader": "^1.2.8"
+  }
+=======
     "name": "backend",
     "version": "1.0.0",
     "description": "",
@@ -17,4 +33,5 @@
     "devDependencies": {
         "nodemon": "^2.0.7"
     }
+>>>>>>> c3f33cd30dffae4ffa54ed0766cf0d772fc77325
 }
