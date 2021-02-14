@@ -1,4 +1,4 @@
-const { Assessment } = require("../models/assessment");
+const { Assessment } = require("../models/assessmentModel");
 const getSyllabus = require("../services/syllabusService");
 
 exports.getAllAssessments = function (req, res) {

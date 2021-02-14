@@ -1,6 +1,6 @@
 const pdfreader = require("pdfreader");
 const moment = require("moment");
-const Course = require("../models/course");
+const Course = require("../models/courseModel");
 
 const termStart = moment("20210111", "YYYYMMDD");
 

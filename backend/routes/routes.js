@@ -2,15 +2,15 @@
 const multer = require("multer")({dest: "./pdfs"});
 
 module.exports = function (app) {
-    var courseController = require("../controllers/course");
-    var assessmentController = require("../controllers/assessment");
-    var calendarController = require("../controllers/calendar");
-    var uploadController = require("../controllers/upload")
+    var courseController = require("../controllers/courseController");
+    var assessmentController = require("../controllers/assessmentController");
+    var calendarController = require("../controllers/calendarController");
+    var uploadController = require("../controllers/uploadController")
 
     // doDates Routes
     app.route("/courses")
         .get(courseController.list_all_courses)
-        .post(courseController.add_a_course);
+        .post(courseController.add_course);
     
     app.route("/courses/:courseCode&:university")
         .get(courseController.list_all_course_entries)
