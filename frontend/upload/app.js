@@ -210,7 +210,7 @@ window.onload = function () {
       <td class="tableCell weight">
         <input class="tableInput percent" type="number" min="1" max="100" value="${weight}" />
       </td>
-      <td><img src="../assets/trash.svg" class="delete" /></td>
+      <td class="deleteCol"><img src="../assets/trash.svg" class="delete" /></td>
     `;
 
         document.getElementById("tableBody").appendChild(newEl);
