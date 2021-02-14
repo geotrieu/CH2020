@@ -5,12 +5,12 @@
 }
 
 #welcomeTo {
-    margin-right: 15px;
     text-transform: uppercase;
 }
 
 #dodate {
     font-size: 3em;
+    margin: 0 15px;
 }
 
 #body {
