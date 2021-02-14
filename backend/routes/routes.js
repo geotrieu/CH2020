@@ -14,11 +14,13 @@ module.exports = function (app) {
 
     app.route("/courses/:courseId")
         .get(collection.get_course)
-        .post(collection.delete_course);
-
+        
     app.route("/assessments")
         .get(assessmentController.getAllAssessments)
         .post(assessmentController.addAssessment);
+
+    app.route("/assessments/pdf/:fileName")
+        .get(assessmentController.getPDFAssessment);
 
     app.route("/ical")
         .get(calendarController.getICS);

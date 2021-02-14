@@ -15,9 +15,9 @@ var CourseSchema = new Schema({
         type: String,
         required: "Course code is required",
     },
-    Assignments: {
-        type: Array,
-        required: "List of assignments is required",
+    Term: {
+        type: String,
+        required: "Term of course is required",
     },
 });
 
