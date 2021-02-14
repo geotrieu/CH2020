@@ -154,3 +154,7 @@ hr {
 .required {
     border: 1px solid tomato !important;
 }
+
+.default {
+    color: grey;
+  }

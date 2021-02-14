@@ -5,6 +5,15 @@ window.onload = function () {
 
     load();
 
+    let headerFields = document.getElementsByClassName("headerTextField");
+    for (const el of headerFields) {
+        el.onchange = function () {
+            if (this.value != '') {
+                this.classList.remove('required');
+            }
+        }
+    }
+
     document.getElementById("addNew").onclick = function () {
         addNewRow();
     };
@@ -21,7 +30,8 @@ window.onload = function () {
         let codeRequired = document.getElementById("courseCode").value != "";
         let universityRequired =
             document.getElementById("university").value != "";
-        let termRequired = document.getElementById("term").value != "";
+        // let termRequired = document.getElementById("term").value != "";
+        let termRequired = document.getElementById("selectTerm").value != "Term";
 
         if (!nameRequired) {
             document.getElementById("courseName").classList.add("required");
@@ -39,9 +49,9 @@ window.onload = function () {
             document.getElementById("university").classList.remove("required");
         }
         if (!termRequired) {
-            document.getElementById("term").classList.add("required");
+            document.getElementById("selectTerm").classList.add("required");
         } else {
-            document.getElementById("term").classList.remove("required");
+            document.getElementById("selectTerm").classList.remove("required");
         }
 
         if (
@@ -55,6 +65,7 @@ window.onload = function () {
             return;
 
         let res = await submitCourse();
+        console.log(res);
         let link = `${apiEndpoint}/ical/${res.course_id}`;
         showModal(link);
 
@@ -108,8 +119,9 @@ window.onload = function () {
             params.get("courseCode") || "";
         document.getElementById("university").value =
             params.get("university") || "";
-        document.getElementById("term").value = params.get("term") || "";
 
+        setTermDropdown(params.get("term") || null);
+        
         let id = params.get("id");
         if (id) {
             fetch(`${apiEndpoint}/assessments/${id}`)
@@ -202,13 +214,13 @@ window.onload = function () {
         newEl.classList.add("tableRow");
         newEl.innerHTML = `
       <td class="tableCell name">
-        <input class="tableInput" type="text" value="${name}" />
+        <input class="tableInput" type="text" value="${name || ''}" />
       </td>
       <td class="tableCell deadline">
-        <input class="tableInput" type="date" value="${deadline}" />
+        <input class="tableInput" type="date" value="${deadline || ''}" />
       </td>
       <td class="tableCell weight">
-        <input class="tableInput percent" type="number" min="1" max="100" value="${weight}" />
+        <input class="tableInput percent" type="number" min="1" max="100" value="${weight || ''}" />
       </td>
       <td class="deleteCol"><img src="../assets/trash.svg" class="delete" /></td>
     `;
@@ -235,4 +247,48 @@ window.onload = function () {
             };
         }
     }
+
+    function setTermDropdown(cur) {
+        let e = document.getElementById("selectTerm");
+        e.innerHTML = '';
+    
+        let empty = document.createElement('OPTION');
+        empty.innerText = 'Term';
+        e.appendChild(empty);
+    
+        let seasons = ["Winter", "Spring", "Summer", "Fall"];
+    
+        let seasonId = Math.floor(((new Date()).getMonth() + 1) / 4);
+        let curSeason = seasons[seasonId];
+        let year = (new Date()).getFullYear();
+        let nextSeason = (seasonId < 3) ? seasons[seasonId + 1] : seasons[0];
+        let nextYear = year + (seasonId == 3 ? 1 : 0);
+    
+        let curOption = document.createElement('OPTION');
+        curOption.innerText = `${curSeason} ${year}`;
+        let nextOption = document.createElement('OPTION');
+        nextOption.innerText = `${nextSeason} ${nextYear}`;
+
+        if (cur) {
+            let fromParam = document.createElement('OPTION');
+            fromParam.innerText = cur;
+            fromParam.selected = true;
+            e.appendChild(fromParam);
+            e.classList.remove('default');
+        } else {
+            empty.selected = true;
+        }
+
+        if (`${curSeason} ${year}` != cur) e.appendChild(curOption);
+        if (`${nextSeason} ${nextYear}` != cur) e.appendChild(nextOption);
+    
+        e.onchange = function() {
+          if (e.value === 'Term') {
+            e.classList.add('default');
+          } else {
+            e.classList.remove('default');
+          }
+          this.classList.remove('required');
+        }
+      }
 };
