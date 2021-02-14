@@ -45,12 +45,14 @@
               <p id="resultCount">(0 results)</p>
             </div>
             <div id="resultsSort">
-              <select>
-                <option>Course Code</option>
-                <option>Course Name</option>
-                <option>University</option>
-                <option>Term</option>
+              <span>Sort by:</span>
+              <select id="selectSort">
+                <option value="course_code" selected>Course Code</option>
+                <option value="course_name">Course Name</option>
+                <option value="university_name">University</option>
+                <option value="term">Term</option>
               </select>
+              <button id="sortOrder" class="button">asc</button>
             </div>
           </div>
 
