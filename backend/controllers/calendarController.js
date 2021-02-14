@@ -25,7 +25,7 @@ exports.getICS = async function(req, res) {
 function getTimestamp(unix) {
     let date = new Date(unix);
     // Appending 0 then slicing by -2 will ensure leading zero is present when needed
-    return `${date.getUTCFullYear()}${("0"+(date.getUTCMonth()+1)).slice(-2)}${("0"+date.getUTCDate()).slice(-2)}T${("0"+date.getUTCHours()).slice(-2)}${("0"+date.getUTCMinutes()).slice(-2)}${("0"+date.getUTCSeconds()).slice(-2)}Z`
+    return `${date.getUTCFullYear()}${("0"+(date.getUTCMonth()+1)).slice(-2)}${("0"+date.getUTCDate()).slice(-2)}`;//T${("0"+date.getUTCHours()).slice(-2)}${("0"+date.getUTCMinutes()).slice(-2)}${("0"+date.getUTCSeconds()).slice(-2)}Z`
 }
 
 
@@ -46,7 +46,7 @@ function generateCalendarString(course, assesments) {
         out += `DTSTAMP:${timestamp}\n`;
         out += `DTSTART:${timestamp}\n`;
         out += `DTEND:${timestamp}\n`;
-        out += `SUMMARY:${assessment.item}\n`;
+        out += `SUMMARY:${course.course_code} ${assessment.item}\n`;
         out += `END:VEVENT\n`;
     }
     out += 'END:VCALENDAR';
