@@ -1,5 +1,3 @@
 {
-    "database": {
-        "connection": ""
-    }
+    "db": "dodates_connection"
 }
