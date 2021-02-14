@@ -1,4 +1,4 @@
 node_modules/
 package-lock.json
 pdfs/
-backend/config/production.json
+config/
