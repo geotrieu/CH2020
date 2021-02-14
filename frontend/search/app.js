@@ -179,12 +179,17 @@ window.onload = function() {
     let year = (new Date()).getFullYear();
     let nextSeason = (seasonId < 3) ? seasons[seasonId + 1] : seasons[0];
     let nextYear = year + (seasonId == 3 ? 1 : 0);
+    let prevSeason = (seasonId > 1) ? seasons[seasonId - 1] : seasons[3];
+    let prevYear = year - (seasonId == 0 ? 1 : 0);
 
     let curOption = document.createElement('OPTION');
     curOption.innerText = `${curSeason} ${year}`;
     let nextOption = document.createElement('OPTION');
     nextOption.innerText = `${nextSeason} ${nextYear}`;
+    let prevOption = document.createElement('OPTION');
+    prevOption.innerText = `${prevSeason} ${prevYear}`;
 
+    e.appendChild(prevOption);
     e.appendChild(curOption);
     e.appendChild(nextOption);
 
