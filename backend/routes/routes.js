@@ -1,8 +1,11 @@
 "use strict";
+const multer = require("multer")({dest: "./pdfs"});
+
 module.exports = function (app) {
     var collection = require("../controllers/controller");
     var assessmentController = require("../controllers/assessment");
-    var calendarController = require("../controllers/calendar")
+    var calendarController = require("../controllers/calendar");
+    var uploadController = require("../controllers/upload")
 
     // todoList Routes
     app.route("/courses")
@@ -22,4 +25,7 @@ module.exports = function (app) {
     
     app.route("/ical/:course")
         .get(calendarController.getICS);
+
+    app.route("/uploadSyllabus")
+        .post(multer.any(), uploadController.handleSyllabus);
 };
