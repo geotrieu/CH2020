@@ -36,14 +36,17 @@ window.onload = function () {
         document.getElementById("queryForm").reset();
     };
 
+    document.getElementById("courseCode").onkeyup = function (event) {
+        search();
+    };
+
+    document.getElementById("uni").onkeyup = function (event) {
+        search();
+    };
+
     document.getElementById("searchButton").onclick = function (event) {
         event.preventDefault();
-
-        let courseCode = document.getElementById("courseCode").value;
-        let university = document.getElementById("uni").value;
-        let term = document.getElementById("selectTerm").value;
-
-        search(courseCode, university, term);
+        search();
     };
 
     let selectSortDropdown = document.getElementById("selectSort");
@@ -85,8 +88,10 @@ window.onload = function () {
 
     setTermDropdown();
 
-    function search(code, uni, term) {
-        if (!code && !uni && term === "Term") return;
+    function search() {
+        let code = document.getElementById("courseCode").value;
+        let uni = document.getElementById("uni").value;
+        let term = document.getElementById("selectTerm").value;
 
         let vals = "";
         if (code) {
@@ -182,43 +187,48 @@ window.onload = function () {
             };
         }
     }
+
+    function setTermDropdown() {
+        let e = document.getElementById("selectTerm");
+        e.innerHTML = "";
+
+        let empty = document.createElement("OPTION");
+        empty.innerText = "Term";
+        empty.selected = true;
+        e.appendChild(empty);
+
+        let seasons = ["Winter", "Spring", "Summer", "Fall"];
+
+        let seasonId = Math.floor((new Date().getMonth() + 1) / 4);
+        let curSeason = seasons[seasonId];
+        let year = new Date().getFullYear();
+        let nextSeason = seasonId < 3 ? seasons[seasonId + 1] : seasons[0];
+        let nextYear = year + (seasonId == 3 ? 1 : 0);
+        let prevSeason = seasonId > 1 ? seasons[seasonId - 1] : seasons[3];
+        let prevYear = year - (seasonId == 0 ? 1 : 0);
+
+        let curOption = document.createElement("OPTION");
+        curOption.value = `${curSeason} ${year}`;
+        curOption.innerText = `${curSeason} ${year}`;
+        let nextOption = document.createElement("OPTION");
+        nextOption.value = `${nextSeason} ${nextYear}`;
+        nextOption.innerText = `${nextSeason} ${nextYear}`;
+        let prevOption = document.createElement("OPTION");
+        prevOption.value = `${prevSeason} ${prevYear}`;
+        prevOption.innerText = `${prevSeason} ${prevYear}`;
+
+        e.appendChild(prevOption);
+        e.appendChild(curOption);
+        e.appendChild(nextOption);
+
+        e.onchange = function () {
+            if (e.value === "Term") {
+                e.classList.add("default");
+            } else {
+                e.classList.remove("default");
+            }
+            console.log("changed");
+            search();
+        };
+    }
 };
-
-function setTermDropdown() {
-    let e = document.getElementById("selectTerm");
-    e.innerHTML = "";
-
-    let empty = document.createElement("OPTION");
-    empty.innerText = "Term";
-    empty.selected = true;
-    e.appendChild(empty);
-
-    let seasons = ["Winter", "Spring", "Summer", "Fall"];
-
-    let seasonId = Math.floor((new Date().getMonth() + 1) / 4);
-    let curSeason = seasons[seasonId];
-    let year = new Date().getFullYear();
-    let nextSeason = seasonId < 3 ? seasons[seasonId + 1] : seasons[0];
-    let nextYear = year + (seasonId == 3 ? 1 : 0);
-    let prevSeason = seasonId > 1 ? seasons[seasonId - 1] : seasons[3];
-    let prevYear = year - (seasonId == 0 ? 1 : 0);
-
-    let curOption = document.createElement("OPTION");
-    curOption.innerText = `${curSeason} ${year}`;
-    let nextOption = document.createElement("OPTION");
-    nextOption.innerText = `${nextSeason} ${nextYear}`;
-    let prevOption = document.createElement("OPTION");
-    prevOption.innerText = `${prevSeason} ${prevYear}`;
-
-    e.appendChild(prevOption);
-    e.appendChild(curOption);
-    e.appendChild(nextOption);
-
-    e.onchange = function () {
-        if (e.value === "Term") {
-            e.classList.add("default");
-        } else {
-            e.classList.remove("default");
-        }
-    };
-}
