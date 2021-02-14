@@ -5,8 +5,12 @@ hr {
   border-color: var(--hover-color);
 }
 
-.autofillButton {
+#autofillButton {
   cursor: pointer;
+}
+
+#autofillButton:disabled {
+  opacity: 0.5;
 }
 
 .horizontal {

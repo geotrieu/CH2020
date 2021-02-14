@@ -2,15 +2,16 @@
 
 <html>
   <head>
-    <title>UI - Upload</title>
+    <title>dodate - upload</title>
     <link rel="stylesheet" type="text/css" href="../fonts.css" />
-    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <link rel="stylesheet" type="text/css" href="../global.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
     <div id="contentWrapper">
       <div id="navWrapper">
-        <p id="title">duedate</p>
+        <a href="../index.html"><p id="title">dodate</p></a>
         <a href="../search/index.html">
           <div class="navItem" id="toSearch">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-svg">
@@ -34,7 +35,7 @@
         <div id="content">
           <div id="formWrapper">
             <div class="horizontal">
-              <button class="button autofillButton">Autofill from PDF</button>
+              <button class="button" id="autofillButton" disabled>Autofill from PDF</button>
               <input type="file" accept=".pdf" id="fileInputButton" />
             </div>
 
