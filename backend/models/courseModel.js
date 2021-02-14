@@ -3,19 +3,19 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var CourseSchema = new Schema({
-    Course_name: {
+    course_name: {
         type: String,
-        required: "Course nane is required",
+        required: "Course name is required",
     },
-    University_name: {
+    university_name: {
         type: String,
         required: "University name is required",
     },
-    Course_code: {
+    course_code: {
         type: String,
         required: "Course code is required",
     },
-    Term: {
+    term: {
         type: String,
         required: "Term of course is required",
     },
