@@ -3,7 +3,7 @@ const moment = require("moment");
 
 const termStart = moment("20210111", "YYYYMMDD");
 
-function extractAssessments() {
+function extractAssessments(rows) {
     // Look for an "Assessment" Line
     const assessmentRegex = /ASSESSMENT.*/;
     const exitAssessmentRegex = /^[A-Z ]+$/;
@@ -49,9 +49,12 @@ function parsePDF(path) {
         new pdfreader.PdfReader().parseFileItems(path, function (err, item) {
             if (!item) {
                 // end of file
+                console.log(assessmentTextBlock);
                 resolve(assessmentTextBlock);
             } else if (item.page) {
-                assessmentTextBlock.push(extractAssessments());
+                const getAssessmentsBlock = extractAssessments(rows);
+                if (getAssessmentsBlock.length != 0)
+                    assessmentTextBlock.push(getAssessmentsBlock);
                 rows = {}; // clear rows for next page
             } else if (item.text) {
                 // accumulate text items into rows object, per line
@@ -89,10 +92,10 @@ function parseAssessments(assessmentTextBlocks) {
     return assessments;
 }
 
-export async function getAssessments(path) {
+module.exports = async function getAssessments(path) {
     const assessmentTextBlocks = await parsePDF(path);
     // assumes the grading is in the first result for "ASSESSMENT..."
     //console.log(assessmentTextBlocks[0]);
     if (assessmentTextBlocks.length == 0) return false; // syllabus not supported
     return parseAssessments(assessmentTextBlocks);
-}
+};

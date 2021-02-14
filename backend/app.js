@@ -1,4 +1,3 @@
-const calendarService = require("./services/calendarService");
 const mongoose = require("mongoose");
 const config = require("config");
 const express = require("express");

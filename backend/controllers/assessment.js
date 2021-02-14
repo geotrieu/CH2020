@@ -1,10 +1,16 @@
 const { Assessment } = require("../models/assessment");
+const getSyllabus = require("../services/syllabusService");
 
 exports.getAllAssessments = function (req, res) {
     Assessment.find({}, function (err, task) {
         if (err) res.send(err);
         res.json(task);
     });
+};
+
+exports.getPDFAssessment = function (req, res) {
+    const assessments = getSyllabus("../pdfs/" + req.params.fileName + ".pdf");
+    res.json(assessments);
 };
 
 exports.addAssessment = function (req, res) {

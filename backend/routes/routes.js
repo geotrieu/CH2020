@@ -16,6 +16,9 @@ module.exports = function (app) {
         .get(assessmentController.getAllAssessments)
         .post(assessmentController.addAssessment);
 
+    app.route("/assessments/pdf/:fileName")
+        .get(assessmentController.getPDFAssessment);
+
     app.route("/ical")
         .get(calendarController.getICS);
     
