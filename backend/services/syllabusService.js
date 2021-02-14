@@ -1,5 +1,6 @@
 const pdfreader = require("pdfreader");
 const moment = require("moment");
+const Course = require("../models/course");
 
 const termStart = moment("20210111", "YYYYMMDD");
 
@@ -71,7 +72,12 @@ function getDateFromWeekNumber(day, week) {
     return date;
 }
 
-function parseAssessments(assessmentTextBlocks) {
+async function getCourse(code) {
+    let result = await Course.find({ Course_code: code }).exec();
+    return result[0]._id;
+}
+
+function parseAssessments(assessmentTextBlocks, courseID) {
     const weekFormatRegex = /(.*) *(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday).*Week *([0-1]{0,1}[0-9]) *([0-9]{1,2})/i;
 
     const assessments = [];
@@ -84,6 +90,7 @@ function parseAssessments(assessmentTextBlocks) {
                 item: res[1].trim(),
                 date: date.format(),
                 weight: res[4],
+                course: courseID,
             };
             assessments.push(assessment);
         }
@@ -91,10 +98,11 @@ function parseAssessments(assessmentTextBlocks) {
     return assessments;
 }
 
-module.exports = async function getAssessments(path) {
+module.exports = async function getAssessments(path, code) {
     const assessmentTextBlocks = await parsePDF(path);
     // assumes the grading is in the first result for "ASSESSMENT..."
     //console.log(assessmentTextBlocks[0]);
     if (assessmentTextBlocks.length == 0) return false; // syllabus not supported
-    return parseAssessments(assessmentTextBlocks);
+    const courseID = await getCourse(code);
+    return parseAssessments(assessmentTextBlocks, courseID);
 };

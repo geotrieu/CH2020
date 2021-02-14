@@ -10,7 +10,8 @@ exports.getAllAssessments = function (req, res) {
 
 exports.getPDFAssessment = async function (req, res) {
     const assessments = await getSyllabus(
-        "../pdfs/" + req.params.fileName + ".pdf"
+        "../pdfs/" + req.params.fileName + ".pdf",
+        req.params.fileName
     );
     res.json(assessments);
 };
