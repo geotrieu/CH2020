@@ -27,29 +27,16 @@ window.onload = function() {
 
   function search(code, uni, term) {
     console.log(`search for: ${code} ${uni} ${term}`);
+    console.log(`${API_ENDPOINT}/courses/${encodeURIComponent(code).toLowerCase()}&${encodeURIComponent(uni).toLowerCase()}`);
 
-    // fetch(`${API_ENDPOINT}
-    //   courseName=${encodeURIComponent(name)}&
-    //   courseCode=${encodeURIComponent(code)}&
-    //   university=${encodeURIComponent(uni)}&
-    //   uploader=${encodeURIComponent(uploader)}`
-    // ).then(res => {
-    //   return res.json();
-    // }).then(data => {
-    //   updateTable(data);
-    // }).catch(e => {
-    //   console.error(e.message);
-    // });
-
-    let data = [{
-      id: 0,
-      courseName: 'math',
-      courseCode: '137',
-      university: 'Queens',
-      author: 'user#1234',
-      subscriptions: 100
-    }];
-    updateTable(data);
+    fetch(`${API_ENDPOINT}/courses/${encodeURIComponent(code).toLowerCase()}&${encodeURIComponent(uni).toLowerCase()}`
+    ).then(res => {
+      return res.json();
+    }).then(data => {
+      setData(data);
+    }).catch(e => {
+      console.error(e.message);
+    });
   }
 
   function updateTable(data) {  
