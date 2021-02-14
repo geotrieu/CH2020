@@ -1,24 +1,35 @@
-const API_ENDPOINT = "";
 
 window.onload = function() {
-  noDataReturned();
+  const API_ENDPOINT = "http://localhost:3000";
+  const COURSES_PATH = "courses";
+  let data = [];
+
+  function setData(_data) {
+    data = _data;
+    display(data);
+  }
+
+  fetch(`${API_ENDPOINT}/${COURSES_PATH}`).then(res => {
+    return res.json();
+  }).then(data => {
+    setData(data);
+  }).catch(e => {
+    console.error(e);
+  });
 
   document.getElementById("searchButton").onclick = function() {
-    let courseName = document.getElementById("courseName").value;
     let courseCode = document.getElementById("courseCode").value;
     let university = document.getElementById("uni").value;
-    let uploader = document.getElementById("uploader").value;
+    let term = document.getElementById("term").value;
 
-    search(courseName, courseCode, university, uploader);
+    search(courseCode, university, term);
   }
 }
 
+function search(code, uni, term) {
+  console.log(`search for: ${code} ${uni} ${term}`);
 
-function search(name, code, uni, uploader) {
-  console.log(`search for: ${name} ${code} ${uni} ${uploader}`);
-
-
-  // fetch(`${API_ENDPOINT}?
+  // fetch(`${API_ENDPOINT}
   //   courseName=${encodeURIComponent(name)}&
   //   courseCode=${encodeURIComponent(code)}&
   //   university=${encodeURIComponent(uni)}&
@@ -70,12 +81,12 @@ function display(data) {
 
   for (const entry of data) {
     rows += `
-      <tr class="row">
-        <td>${entry.courseName}</td>
-        <td>${entry.courseCode}</td>
-        <td>${entry.university}</td>
-        <td>${entry.author}</td>
-        <td>${entry.subscriptions}</td>
+      <tr class="row" id="${entry._id}">
+        <td>${entry.course_code}</td>
+        <td>${entry.course_name}</td>
+        <td>${entry.university_name}</td>
+        <td>${entry.term}</td>
+        <td>0</td>
       </tr>
     `;
   }
@@ -85,13 +96,20 @@ function display(data) {
   el.innerHTML = `
     <table id="resultsTable" cellspacing=0>
       <tr>
-        <th>Course name</th>
-        <th>Course code</th>
+        <th>Course Code</th>
+        <th>Course Name</th>
         <th>University</th>
-        <th>Author</th>
+        <th>Term</th>
         <th>Subscriptions</th>
       </tr>
       ${rows}
     </table>
   `;
+
+  let els = document.getElementsByClassName("row");
+  for (const el of els) {
+    el.onclick = function() {
+      window.location = `../upload/index.html?id=${el.id}&name=${el.course_name}&code=${el.course_code}&uni=${el.uni}&term=${el.term}`;
+    }
+  }
 }
