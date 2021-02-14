@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Course = require("../models/course");
+const Course = require("../models/courseModel");
 
 exports.list_all_course_entries = function (req, res) {
     Course.find(
@@ -13,6 +13,21 @@ exports.list_all_course_entries = function (req, res) {
         }
     );
 };
+
+exports.add_course = function (req, res) {
+    var entry = {
+        course_name: req.body.course_name,
+        university_name: req.body.university_name,
+        course_code: req.body.course_code,
+        term: req.body.term
+    }
+    var new_course = new Course(entry);
+    new_course.save(function (err, course) {
+        if (err) res.send(err);
+        res.json(course);
+    });
+};
+
 
 exports.list_all_courses = function (req, res) {
     Course.find({}, function (err, course) {

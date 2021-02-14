@@ -1,6 +1,5 @@
 const pdfreader = require("pdfreader");
 const moment = require("moment");
-
 const termStart = moment("20210111", "YYYYMMDD");
 
 function extractAssessments(rows) {
