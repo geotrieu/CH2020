@@ -1,7 +1,8 @@
 window.onload = function() {
-  const API_ENDPOINT = "http://localhost:3000";
-  const COURSES_PATH = "courses";
   let data = [];
+  let order = 'asc';
+  const API_ENDPOINT = "http://localhost:3000/api";
+  const COURSES_PATH = "courses";
 
   function setData(_data) {
     data = _data;
@@ -11,7 +12,11 @@ window.onload = function() {
   fetch(`${API_ENDPOINT}/${COURSES_PATH}`).then(res => {
     return res.json();
   }).then(data => {
-    setData(data);
+    setData(data.sort((a,b) => {
+      if (a.course_code < b.course_code) return -1;
+      else if (a.course_code > b.course_code) return 1;
+      return 0;
+    }));
   }).catch(e => {
     console.error(e);
   });
@@ -22,6 +27,39 @@ window.onload = function() {
     let term = document.getElementById("selectTerm").value;
 
     search(courseCode, university, term);
+  }
+
+  let selectSortDropdown = document.getElementById("selectSort");
+  let sortOrderEl = document.getElementById("sortOrder");
+  selectSortDropdown.onchange = function() {
+    order = 'asc';
+    sortOrderEl.classList.remove('flipped');
+    sortOrderEl.innerText = order;
+    setData(data.sort((a,b) => {
+      if (a[this.value] < b[this.value]) return -1;
+      else if (a[this.value] > b[this.value]) return 1;
+      return 0;
+    }));
+  }
+
+  sortOrderEl.onclick = function() {
+    let sorted = data.sort((a,b) => {
+      if (a[selectSortDropdown.value] < b[selectSortDropdown.value]) return -1;
+      else if (a[selectSortDropdown.value] > b[selectSortDropdown.value]) return 1;
+      return 0;
+    });
+
+    if (order == 'asc') {
+      sorted = sorted.reverse();
+      order = 'desc';
+      this.classList.add('flipped');
+    } else {
+      order = 'asc';
+      this.classList.remove('flipped');
+    }
+    sortOrderEl.innerText = order;
+
+    setData(sorted);
   }
 
   setTermDropdown();

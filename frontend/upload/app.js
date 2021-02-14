@@ -1,4 +1,4 @@
-const apiEndpoint = "http://localhost:3000";
+const apiEndpoint = "http://localhost:3000/api";
 
 window.onload = function () {
     const params = new URLSearchParams(window.location.search);
