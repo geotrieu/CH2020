@@ -15,21 +15,28 @@ exports.list_all_course_entries = function (req, res) {
     );
 };
 
-exports.add_course = function (req, res) {
-    var course_entry = {
+exports.add_course = async function (req, res) {
+    let course_entry = {
         course_name: req.body.course_name,
         university_name: req.body.university_name,
         course_code: req.body.course_code,
         term: req.body.term
     }
-    var new_course = new Course(course_entry);
-    var course_id;
-    new_course.save(function (err, course) {
-        if (err) res.send(err);
-        res.json(course);
-    });
+    let new_course = new Course(course_entry);
+    let course_id;
 
-    Assessment.insertMany(req.body.assessments);    
+    try {
+        let result = await new_course.save();
+    } catch (ex) {
+        console.error(ex);
+    }
+    
+    assessments = req.body.assessments;
+    for (let i = 0; i < assessments.length; i++) {
+        assessments[i]["course"] = new_course._id;
+    }
+    await Assessment.insertMany(assessments);
+    return res.json(assessments);
 };
 
 
