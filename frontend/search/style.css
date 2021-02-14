@@ -20,6 +20,7 @@ p {
 }
 
 h2 {
+  margin-top: 10px;
   margin-bottom: 5px;
 }
 
@@ -74,8 +75,30 @@ h2 {
 #resultsHeader {
   display: flex;
   align-items: center;
+  margin-top: 10px;
 }
 
 #resultsHeader #resultsSort {
-  margin-left: 25px;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#selectSort {
+  margin-left: 15px;
+}
+
+#sortOrder {
+  background: url(../assets/arrow-up.svg) no-repeat right 10px center;
+  background-color: transparent;
+  margin-left: 5px;
+  padding-right: 35px;
+  color: black;
+  text-align: left;
+}
+
+.flipped {
+  background: url(../assets/arrow-down.svg) no-repeat right 10px center !important;
+  background-color: transparent !important;
 }

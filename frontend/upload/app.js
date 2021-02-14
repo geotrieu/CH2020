@@ -13,9 +13,61 @@ window.onload = function () {
         document.getElementById("tableBody").innerHTML = "";
     };
 
-    document.getElementById("submitButton").onclick = function (e) {
+    document.getElementById("submitButton").onclick = async function (e) {
         e.preventDefault();
-        submitCourse();
+
+        //Validation
+        let nameRequired = document.getElementById("courseName").value != "";
+        let codeRequired = document.getElementById("courseCode").value != "";
+        let universityRequired =
+            document.getElementById("university").value != "";
+        let termRequired = document.getElementById("term").value != "";
+
+        if (!nameRequired) {
+            document.getElementById("courseName").classList.add("required");
+        } else {
+            document.getElementById("courseName").classList.remove("required");
+        }
+        if (!codeRequired) {
+            document.getElementById("courseCode").classList.add("required");
+        } else {
+            document.getElementById("courseCode").classList.remove("required");
+        }
+        if (!universityRequired) {
+            document.getElementById("university").classList.add("required");
+        } else {
+            document.getElementById("university").classList.remove("required");
+        }
+        if (!termRequired) {
+            document.getElementById("term").classList.add("required");
+        } else {
+            document.getElementById("term").classList.remove("required");
+        }
+
+        if (
+            !(
+                nameRequired &&
+                codeRequired &&
+                universityRequired &&
+                termRequired
+            )
+        )
+            return;
+
+        let res = await submitCourse();
+        let link = `${apiEndpoint}/ical/${res.course_id}`;
+        showModal(link);
+
+        document.getElementById("copyLink").onclick = function () {
+            let link = document.getElementById("link").innerText;
+            let dummy = document.createElement("INPUT");
+            document.body.appendChild(dummy);
+            dummy.setAttribute("id", "dummy_id");
+            document.getElementById("dummy_id").value = link;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+        };
     };
 
     let fileInput = document.getElementById("fileInputButton");
@@ -31,10 +83,19 @@ window.onload = function () {
 
     document.getElementById("autofillButton").onclick = async function () {
         document.getElementById("tableBody").innerHTML = "";
+        document.getElementById("courseName").value = "";
+        document.getElementById("courseCode").value = "";
+
         const file = document.getElementById("fileInputButton").files[0];
         if (file != null) {
-            const assessments = await postPDF(file);
-            assessments.forEach((a) => {
+            const data = await postPDF(file);
+            if (data.course != null) {
+                document.getElementById("courseName").value =
+                    data.course.courseTextBlock;
+                document.getElementById("courseCode").value =
+                    data.course.courseID;
+            }
+            data.assessments.forEach((a) => {
                 addNewRow(a.item, formatDate(a.date), a.weight);
             });
         }
@@ -63,6 +124,13 @@ window.onload = function () {
                 })
                 .catch((e) => console.error(e));
         }
+    }
+
+    function showModal(link) {
+        let modal = document.getElementById("modal");
+        modal.classList.add("showModal");
+
+        document.getElementById("link").innerText = link;
     }
 
     function formatDate(date) {
@@ -142,7 +210,7 @@ window.onload = function () {
       <td class="tableCell weight">
         <input class="tableInput percent" type="number" min="1" max="100" value="${weight}" />
       </td>
-      <td><img src="../assets/trash.svg" class="delete" /></td>
+      <td class="deleteCol"><img src="../assets/trash.svg" class="delete" /></td>
     `;
 
         document.getElementById("tableBody").appendChild(newEl);

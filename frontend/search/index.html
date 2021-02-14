@@ -11,7 +11,8 @@
   <body>
     <div id="contentWrapper">
       <div id="navWrapper">
-        <a href="../index.html"><p id="title">dodate</p></a>
+        <a id="titleWrapper" href="../index.html"><p id="title">dodate</p></a>
+        <a id="toSearchWrapper" href="../search/index.html">
         <div class="navItem selectedNavItem" id="toSearch">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-svg">
             <circle cx="11" cy="11" r="8"></circle>
@@ -45,12 +46,14 @@
               <p id="resultCount">(0 results)</p>
             </div>
             <div id="resultsSort">
-              <select>
-                <option>Course Code</option>
-                <option>Course Name</option>
-                <option>University</option>
-                <option>Term</option>
+              <span>Sort by:</span>
+              <select id="selectSort">
+                <option value="course_code" selected>Course Code</option>
+                <option value="course_name">Course Name</option>
+                <option value="university_name">University</option>
+                <option value="term">Term</option>
               </select>
+              <button id="sortOrder" class="button">asc</button>
             </div>
           </div>
 

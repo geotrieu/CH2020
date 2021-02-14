@@ -1,6 +1,7 @@
 html,
 body {
     --blue: rgb(56, 159, 255);
+    --blue-hover: rgb(89, 175, 255);
     --border-radius: 5px;
     --box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 3px 0px,
         rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
@@ -13,6 +14,7 @@ body {
     background-color: var(--background-color);
     font-family: "Lato", sans-serif;
     font-weight: lighter;
+    overflow: hidden;
 }
 
 * {
@@ -34,6 +36,10 @@ a {
     text-decoration: none;
 }
 
+select {
+    cursor: pointer;
+}
+
 input {
     background-color: white;
     border: none;
@@ -53,7 +59,19 @@ select {
 }
 
 #title {
-    margin: 30px 0;
+    font-weight: bold;
+    padding: 10px 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin: 0;
+}
+
+#titleWrapper {
+    margin: 20px 0;
+}
+
+#title:hover {
+    background-color: var(--hover-color);
 }
 
 .button {
@@ -66,19 +84,31 @@ select {
     cursor: pointer;
 }
 
+.button:hover {
+    background-color: var(--blue-hover);
+}
+
 .icon-svg {
     display: block;
 }
 
 #navWrapper,
 #page {
-    margin: 10px 20px;
+    margin: 10px;
+    margin-right: 20px;
 }
 
 #page {
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    padding-bottom: 30px;
+    padding-top: 10px;
+    padding-right: 20px;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 #navWrapper {
@@ -94,7 +124,7 @@ select {
     transition: 0.2s;
 }
 
-#navWrapper #toSearch {
+#navWrapper #toSearchWrapper {
     margin-bottom: 20px;
 }
 
@@ -113,6 +143,5 @@ select {
     display: flex;
     flex-direction: row;
     margin-left: 10px;
-    margin-right: 20px;
-    margin-bottom: 20px;
+    height: 100%;
 }

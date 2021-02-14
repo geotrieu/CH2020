@@ -40,15 +40,63 @@ function extractAssessments(rows) {
     return assessmentTextBlocks;
 }
 
+function extractCourse(rows) {
+    // Look for an Course ID - Name Line
+    const courseRegex = /^([A-Z ]+[0-9]+).*?([A-Z ]*)$/;
+    const exitCourseRegex = /[a-z]+/;
+
+    let courseID = "";
+    let courseTextBlock = "";
+    let inCourse = false;
+    let ret = null;
+
+    Object.keys(rows) // => array of y-positions (type: float)
+        .sort((y1, y2) => parseFloat(y1) - parseFloat(y2)) // sort float positions
+        .forEach((y, idx, arr) => {
+            line = (rows[y] || []).join("");
+            //console.log(line);
+            if (ret) {
+                return ret;
+            }
+            if (inCourse) {
+                if (line.match(exitCourseRegex) != null) {
+                    //inCourse = false;
+                    ret = {
+                        courseID: courseID,
+                        courseTextBlock: courseTextBlock.trim(),
+                    };
+                } else {
+                    courseTextBlock += line;
+                }
+            } else {
+                const results = line.match(courseRegex);
+                if (results != null) {
+                    inCourse = true;
+                    courseID += results[1];
+                    courseTextBlock += results[2];
+                }
+            }
+        });
+    return ret;
+}
+
 function parsePDF(path) {
     return new Promise(function (resolve, reject) {
         let rows = {}; // indexed by y-position
         let assessmentTextBlock = [];
+        let course = {};
         new pdfreader.PdfReader().parseFileItems(path, function (err, item) {
             if (!item) {
                 // end of file
-                resolve(assessmentTextBlock);
+                resolve({
+                    course: course,
+                    assessmentTextBlock: assessmentTextBlock,
+                });
             } else if (item.page) {
+                if (item.page == 2) {
+                    //search for title
+                    course = extractCourse(rows);
+                }
                 const getAssessmentsBlock = extractAssessments(rows);
                 if (getAssessmentsBlock.length != 0)
                     assessmentTextBlock = assessmentTextBlock.concat(
@@ -96,9 +144,15 @@ function parseAssessments(assessmentTextBlocks) {
 }
 
 module.exports = async function getAssessments(path) {
-    const assessmentTextBlocks = await parsePDF(path);
+    const results = await parsePDF(path);
     // assumes the grading is in the first result for "ASSESSMENT..."
     //console.log(assessmentTextBlocks[0]);
-    if (assessmentTextBlocks.length == 0) return false; // syllabus not supported
-    return parseAssessments(assessmentTextBlocks);
+    if (results.assessmentTextBlock.length == 0) return false; // syllabus not supported
+    let res = {
+        assessments: parseAssessments(results.assessmentTextBlock),
+    };
+    if (results.course.length != 0) {
+        res.course = results.course;
+    }
+    return res;
 };
