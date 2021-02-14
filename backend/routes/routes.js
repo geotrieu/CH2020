@@ -2,22 +2,25 @@
 const multer = require("multer")({dest: "./pdfs"});
 
 module.exports = function (app) {
-    var collection = require("../controllers/controller");
+    var courseController = require("../controllers/course");
     var assessmentController = require("../controllers/assessment");
     var calendarController = require("../controllers/calendar");
     var uploadController = require("../controllers/upload")
 
-    // todoList Routes
+    // doDates Routes
     app.route("/courses")
-        .get(collection.list_all_courses)
-        .post(collection.add_a_course);
+        .get(courseController.list_all_courses)
+        .post(courseController.add_a_course);
+    
+    app.route("/courses/:courseCode&:university")
+        .get(courseController.list_all_course_entries)
 
-    app.route("/courses/:courseId")
-        .get(collection.get_course)
-        
     app.route("/assessments")
         .get(assessmentController.getAllAssessments)
         .post(assessmentController.addAssessment);
+
+    app.route("/assessments/:courseId")
+        .get(assessmentController.getCourseAssessments)
 
     app.route("/assessments/pdf/:fileName")
         .get(assessmentController.getPDFAssessment);
