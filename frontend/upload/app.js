@@ -30,7 +30,6 @@ window.onload = function () {
         let codeRequired = document.getElementById("courseCode").value != "";
         let universityRequired =
             document.getElementById("university").value != "";
-        // let termRequired = document.getElementById("term").value != "";
         let termRequired = document.getElementById("selectTerm").value != "Term";
 
         if (!nameRequired) {
@@ -54,20 +53,36 @@ window.onload = function () {
             document.getElementById("selectTerm").classList.remove("required");
         }
 
+        let inputs = document.getElementsByClassName("name");
+        let deadlines = document.getElementsByClassName("deadline");
+        let weights = document.getElementsByClassName("weight");
+        let valid = true;
+        console.log(inputs);
+
+        for (let i = 0; i < inputs.length; ++i) {
+            if (!inputs[i].children[0].value && !deadlines[i].children[0].value && !weights[i].children[0].value) continue;
+
+            if (!inputs[i].children[0].value) inputs[i].children[0].classList.add('required');
+            if (!deadlines[i].children[0].value) deadlines[i].children[0].classList.add('required');
+            if (!weights[i].children[0].value || weights[i].children[0].value < 1 || weights[i].children[0].value > 100) weights[i].children[0].classList.add('required');
+            valid = false;
+        }
+
         if (
             !(
                 nameRequired &&
                 codeRequired &&
                 universityRequired &&
-                termRequired
+                termRequired &&
+                valid
             )
         )
             return;
 
         let res = await submitCourse();
-        console.log(res);
-        let link = `${apiEndpoint}/ical/${res.course_id}`;
-        showModal(link);
+        // console.log(res);
+        // let link = `${apiEndpoint}/ical/${res.course_id}`;
+        showModal('ldghslhgsgdsjgs');
 
         document.getElementById("copyLink").onclick = function () {
             let link = document.getElementById("link").innerText;
@@ -180,11 +195,13 @@ window.onload = function () {
             course_name: document.getElementById("courseName").value,
             course_code: document.getElementById("courseCode").value,
             university_name: document.getElementById("university").value,
-            term: document.getElementById("term").value,
+            term: document.getElementById("selectTerm").value,
             assessments: [],
         };
 
         for (let i = 0; i < numEntries; i++) {
+            if (!inputs[i].children[0].value && !deadlines[i].children[0].value && !weights[i].children[0].value) continue;
+
             data.assessments.push({
                 item: inputs[i].children[0].value,
                 date: deadlines[i].children[0].value,
@@ -213,19 +230,28 @@ window.onload = function () {
         let newEl = document.createElement("TR");
         newEl.classList.add("tableRow");
         newEl.innerHTML = `
-      <td class="tableCell name">
-        <input class="tableInput" type="text" value="${name || ''}" />
-      </td>
-      <td class="tableCell deadline">
-        <input class="tableInput" type="date" value="${deadline || ''}" />
-      </td>
-      <td class="tableCell weight">
-        <input class="tableInput percent" type="number" min="1" max="100" value="${weight || ''}" />
-      </td>
-      <td class="deleteCol"><img src="../assets/trash.svg" class="delete" /></td>
-    `;
+            <td class="tableCell name">
+                <input class="tableInput" type="text" value="${name || ''}" />
+            </td>
+            <td class="tableCell deadline">
+                <input class="tableInput" type="date" value="${deadline || ''}" />
+            </td>
+            <td class="tableCell weight">
+                <input class="tableInput percent" type="number" min="1" max="100" value="${weight || ''}" />
+            </td>
+            <td class="deleteCol"><img src="../assets/trash.svg" class="delete" /></td>
+        `;
 
         document.getElementById("tableBody").appendChild(newEl);
+
+        let fields = newEl.getElementsByClassName('tableInput');
+        for (const el of fields) {
+            el.onchange = function () {
+                if (this.value != '') {
+                    this.classList.remove('required');
+                }
+            }
+        }
 
         let deletebtns = document.getElementsByClassName("delete");
         for (const i in deletebtns) {
@@ -263,12 +289,16 @@ window.onload = function () {
         let year = (new Date()).getFullYear();
         let nextSeason = (seasonId < 3) ? seasons[seasonId + 1] : seasons[0];
         let nextYear = year + (seasonId == 3 ? 1 : 0);
-    
+        let prevSeason = (seasonId > 1) ? seasons[seasonId - 1] : seasons[3];
+        let prevYear = year - (seasonId == 0 ? 1 : 0);
+
         let curOption = document.createElement('OPTION');
         curOption.innerText = `${curSeason} ${year}`;
         let nextOption = document.createElement('OPTION');
         nextOption.innerText = `${nextSeason} ${nextYear}`;
-
+        let prevOption = document.createElement('OPTION');
+        prevOption.innerText = `${prevSeason} ${prevYear}`;
+    
         if (cur) {
             let fromParam = document.createElement('OPTION');
             fromParam.innerText = cur;
@@ -279,6 +309,7 @@ window.onload = function () {
             empty.selected = true;
         }
 
+        if (`${prevSeason} ${prevYear}` != cur) e.appendChild(prevOption);
         if (`${curSeason} ${year}` != cur) e.appendChild(curOption);
         if (`${nextSeason} ${nextYear}` != cur) e.appendChild(nextOption);
     
