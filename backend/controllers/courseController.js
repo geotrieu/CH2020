@@ -20,8 +20,8 @@ exports.add_course = async function (req, res) {
         course_name: req.body.course_name,
         university_name: req.body.university_name,
         course_code: req.body.course_code,
-        term: req.body.term
-    }
+        term: req.body.term,
+    };
     let new_course = new Course(course_entry);
     let course_id;
 
@@ -30,7 +30,7 @@ exports.add_course = async function (req, res) {
     } catch (ex) {
         console.error(ex);
     }
-    
+
     assessments = req.body.assessments;
     for (let i = 0; i < assessments.length; i++) {
         assessments[i]["course"] = new_course._id;
@@ -38,7 +38,6 @@ exports.add_course = async function (req, res) {
     await Assessment.insertMany(assessments);
     return res.json(assessments);
 };
-
 
 exports.list_all_courses = function (req, res) {
     Course.find({}, function (err, course) {
