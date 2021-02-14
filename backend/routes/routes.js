@@ -9,11 +9,11 @@ module.exports = function (app) {
 
     // doDates Routes
     app.route("/api/courses")
-        .get(courseController.list_all_courses)
+        .get(courseController.list_all_course_entries)
         .post(courseController.add_course);
     
-    app.route("/api/courses/:courseCode")
-        .get(courseController.list_all_course_entries)
+    /* app.route("/api/courses/:courseCode")
+        .get(courseController.list_all_course_entries) */
 
     app.route("/api/assessments")
         .get(assessmentController.getAllAssessments)

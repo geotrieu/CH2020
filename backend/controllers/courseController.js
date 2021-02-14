@@ -3,11 +3,13 @@ const { Assessment } = require("../models/assessmentModel");
 const Course = require("../models/courseModel");
 
 exports.list_all_course_entries = function (req, res) {
-    let re = new RegExp(req.params.courseCode, "i");
-    let query = {
-        course_code: re,
-    };
 
+    let query = {};
+
+    if (req.query.course_code != undefined) {
+        re = new RegExp(req.query.course_code, "i");
+        query.course_code = re;
+    } 
     if (req.query.university != undefined) {
         re = new RegExp(req.query.university, "i");
         query.university_name = re;
