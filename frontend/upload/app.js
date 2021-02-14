@@ -13,9 +13,21 @@ window.onload = function () {
         document.getElementById("tableBody").innerHTML = "";
     };
 
-    document.getElementById("submitButton").onclick = function (e) {
+    document.getElementById("submitButton").onclick = async function (e) {
         e.preventDefault();
-        submitCourse();
+        let link = await submitCourse();
+        showModal(link);
+
+        document.getElementById("copyLink").onclick = function () {
+            let link = document.getElementById("link").innerText;
+            let dummy = document.createElement("INPUT");
+            document.body.appendChild(dummy);
+            dummy.setAttribute("id", "dummy_id");
+            document.getElementById("dummy_id").value = link;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+        };
     };
 
     let fileInput = document.getElementById("fileInputButton");
@@ -72,6 +84,13 @@ window.onload = function () {
                 })
                 .catch((e) => console.error(e));
         }
+    }
+
+    function showModal(link) {
+        let modal = document.getElementById("modal");
+        modal.classList.add("showModal");
+        
+        document.getElementById("link").innerText = link;
     }
 
     function formatDate(date) {
