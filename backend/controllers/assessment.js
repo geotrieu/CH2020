@@ -8,8 +8,10 @@ exports.getAllAssessments = function (req, res) {
     });
 };
 
-exports.getPDFAssessment = function (req, res) {
-    const assessments = getSyllabus("../pdfs/" + req.params.fileName + ".pdf");
+exports.getPDFAssessment = async function (req, res) {
+    const assessments = await getSyllabus(
+        "../pdfs/" + req.params.fileName + ".pdf"
+    );
     res.json(assessments);
 };
 

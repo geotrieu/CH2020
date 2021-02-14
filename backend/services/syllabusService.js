@@ -38,7 +38,6 @@ function extractAssessments(rows) {
                 }
             }
         });
-
     return assessmentTextBlocks;
 }
 
@@ -49,12 +48,13 @@ function parsePDF(path) {
         new pdfreader.PdfReader().parseFileItems(path, function (err, item) {
             if (!item) {
                 // end of file
-                console.log(assessmentTextBlock);
                 resolve(assessmentTextBlock);
             } else if (item.page) {
                 const getAssessmentsBlock = extractAssessments(rows);
                 if (getAssessmentsBlock.length != 0)
-                    assessmentTextBlock.push(getAssessmentsBlock);
+                    assessmentTextBlock = assessmentTextBlock.concat(
+                        getAssessmentsBlock
+                    );
                 rows = {}; // clear rows for next page
             } else if (item.text) {
                 // accumulate text items into rows object, per line
@@ -88,7 +88,6 @@ function parseAssessments(assessmentTextBlocks) {
             assessments.push(assessment);
         }
     });
-
     return assessments;
 }
 
