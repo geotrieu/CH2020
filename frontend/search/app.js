@@ -67,9 +67,15 @@ window.onload = function() {
   function search(code, uni, term) {
     if (!code && !uni && term === 'Term') return;
     
-    let vals = [encodeURIComponent(code).toLowerCase(), encodeURIComponent(uni).toLowerCase(), term];
-    vals = vals.filter(x => x).join('&');
-    fetch(`${API_ENDPOINT}/courses/${vals}`
+    let vals = "";
+    if(uni){
+      vals += "university="+encodeURIComponent(uni).toLowerCase()+"&";
+    }
+    if(term !== "Term"){
+      vals += "term="+term;
+    }
+    
+    fetch(`${API_ENDPOINT}/courses/${encodeURIComponent(code).toLowerCase()}?${vals}`
     ).then(res => {
       return res.json();
     }).then(data => {
