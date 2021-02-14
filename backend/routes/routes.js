@@ -12,7 +12,7 @@ module.exports = function (app) {
         .get(courseController.list_all_courses)
         .post(courseController.add_course);
     
-    app.route("/api/courses/:courseCode&:university")
+    app.route("/api/courses/:courseCode")
         .get(courseController.list_all_course_entries)
 
     app.route("/api/assessments")
