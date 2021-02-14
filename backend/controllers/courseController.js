@@ -5,8 +5,8 @@ const Course = require("../models/courseModel");
 exports.list_all_course_entries = function (req, res) {
     Course.find(
         {
-            Course_code: req.params.courseCode,
-            University_name: req.params.university,
+            course_code: req.params.courseCode,
+            university_name: req.params.university,
         },
         function (err, course) {
             if (err) res.send(err);
