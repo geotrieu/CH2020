@@ -1,3 +1,20 @@
+
+exports.getICS = function(req, res) {
+    if(req.params.course != undefined){
+        let body = getCalendar(req.params);
+        if(body != null){
+            res.set("Content-Type", "text/calendar");
+            res.send(body);
+        } else {
+            res.set("Content-Type", "text/html");
+            res.send(`Course ID "${req.params.course}" could not be found`)
+        }
+    } else {
+        res.set("Content-Type", "text/html");
+        res.send("Course ID not specified");
+    }
+}
+
 /**
  * @type Course
  */
@@ -15,10 +32,6 @@ var testData = {
             weight: 0.25
         }
     ]
-}
-
-module.exports = {
-    getCalendar:getCalendar
 }
 
 /***

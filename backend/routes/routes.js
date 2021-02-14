@@ -2,6 +2,7 @@
 module.exports = function (app) {
     var collection = require("../controllers/controller");
     var assessmentController = require("../controllers/assessment");
+    var calendarController = require("../controllers/calendar")
 
     // todoList Routes
     app.route("/courses")
@@ -15,4 +16,10 @@ module.exports = function (app) {
     app.route("/assessments")
         .get(assessmentController.getAllAssessments)
         .post(assessmentController.addAssessment);
+
+    app.route("/ical")
+        .get(calendarController.getICS);
+    
+    app.route("/ical/:course")
+        .get(calendarController.getICS);
 };
