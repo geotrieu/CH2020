@@ -6,6 +6,10 @@ window.onload = function() {
   document.getElementById("deleteAll").onclick = function() {
     document.getElementById("tableBody").innerHTML = '';
   }
+
+  document.getElementById("fileInputButton").onchange = function() {
+    console.log("file!");
+  }
 }
 
 function addNewRow() {
@@ -22,7 +26,7 @@ function addNewRow() {
       <input class="tableInput percent" type="number" min="1" max="100" value="1" />
     </td>
     <td><img src="../assets/trash.svg" class="delete" /></td>
-`;
+  `;
 
   document.getElementById("tableBody").appendChild(newEl);
 

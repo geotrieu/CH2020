@@ -6,7 +6,6 @@ hr {
 }
 
 .autofillButton {
-  position: relative;
   cursor: pointer;
 }
 
@@ -16,10 +15,13 @@ hr {
 }
 
 #fileInputButton {
-  flex: 1;
   background-color: transparent;
   box-shadow: none;
-  padding: calc((45px - 21px) / 2) 15px;
+  padding: calc((40px - 21px) / 2) 15px;
+  height: min-content;
+  width: min-content;
+  cursor: pointer;
+  margin-left: 15px;
 }
 
 #content {
@@ -58,6 +60,12 @@ hr {
 
 #assignmentsTable #addNew {
   cursor: pointer;
+  font-weight: bold;
+  background-color: transparent;
+  width: 100%;
+  padding: 10px;
+  color: black;
+  height: 40px;
 }
 
 #assignmentsTable #addNew:hover {
@@ -77,6 +85,7 @@ hr {
   border: 2px solid var(--hover-color);
   width: 100%;
   padding: 10px;
+  height: 40px;
   box-sizing: border-box;
 }
 

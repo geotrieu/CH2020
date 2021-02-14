@@ -8,12 +8,9 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
-    <div id="topBar">
-      <h1>Upload</h1>
-    </div>
-
     <div id="contentWrapper">
       <div id="navWrapper">
+        <p id="title">duedate</p>
         <a href="../search/index.html">
           <div class="navItem" id="toSearch">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-svg">
@@ -31,57 +28,60 @@
         </div>
       </div>
 
-      <div id="content">
-        <div id="formWrapper">
-          <div class="horizontal">
-            <button class="button autofillButton">Autofill from PDF</button>
-            <input type="file" accept=".pdf" id="fileInputButton" />
-          </div>
+      <div id="page">
+        <h1>Upload</h1>
 
-          <hr width="100%" size="1px" />
+        <div id="content">
+          <div id="formWrapper">
+            <div class="horizontal">
+              <button class="button autofillButton">Autofill from PDF</button>
+              <input type="file" accept=".pdf" id="fileInputButton" />
+            </div>
 
-          <form>
-            <div id="form">
-              <div id="headerFields">
-                <input type="text" id="courseName" placeholder="Course name" />
-                <input type="text" id="courseCode" placeholder="Course code" />
-                <input type="text" id="uni" placeholder="University" />
-              </div>
-              
-              <div id="assignments">
-                <h2>Assignments</h2>
+            <hr width="100%" size="1px" />
 
-                <div id="assignmentsTableWrapper">
+            <form>
+              <div id="form">
+                <div id="headerFields">
+                  <input type="text" id="courseName" placeholder="Course name" />
+                  <input type="text" id="courseCode" placeholder="Course code" />
+                  <input type="text" id="uni" placeholder="University" />
+                </div>
+                
+                <div id="assignments">
+                  <h2>Assignments</h2>
 
-                  <table id="assignmentsTable" cellspacing=0>
-                    <tr>
-                      <th class="name">Name</th>
-                      <th class="deadline">Deadline</th>
-                      <th class="weight">Weight</th>
-                      <th><img src="../assets/trash.svg" id="deleteAll" /></th>
-                    </tr>
+                  <div id="assignmentsTableWrapper">
 
-                    <tbody id="tableBody">
-                    </tbody>
+                    <table id="assignmentsTable" cellspacing=0>
+                      <tr>
+                        <th class="name">Name</th>
+                        <th class="deadline">Deadline</th>
+                        <th class="weight">Weight</th>
+                        <th><img src="../assets/trash.svg" id="deleteAll" /></th>
+                      </tr>
+                      
+                      <tbody id="tableBody"></tbody>
 
-                    <tr id="addNewRow">
-                      <td colspan="5" id="addNew">
-                        Add new
-                      </td>
-                    </tr>
-                  </table>
+                      <tr id="addNewRow">
+                        <td colspan="5">
+                          <button type="button" class="button" id="addNew">Add new row</button>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div id="submitWrapper">
-              <input type="submit" class="button" value="Generate calendar" />
+              <div id="submitWrapper">
+                <input type="submit" class="button" value="Generate calendar" />
+              </div>
             </div>
+          </form>
+
+          <div id="pdfViewer">
+
           </div>
-        </form>
-
-        <div id="pdfViewer">
-
         </div>
       </div>
     </div>
