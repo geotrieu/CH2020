@@ -70,7 +70,7 @@ function getDateFromWeekNumber(day, week) {
     return date;
 }
 
-/*async function getCourse(code) {
+/* async function getCourse(code) {
     let result = await Course.find({ Course_code: code }).exec();
     return result[0]._id;
 }*/
