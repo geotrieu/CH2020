@@ -34,13 +34,25 @@
         <div id="searchArea">
           <input type="text" id="courseCode" placeholder="Course code" maxlength="10" />
           <input type="text" id="uni" placeholder="University" maxlength="20" />
-          <input type="text" id="term" placeholder="Term" />
+          <select id="selectTerm" class="default"></select>
           <button class="button" id="searchButton">Search</button>
         </div>
 
         <div id="resultsArea">
-          <h2>Results</h2>
-          <p id="resultCount">(0 results)</p>
+          <div id="resultsHeader">
+            <div>
+              <h2>Results</h2>
+              <p id="resultCount">(0 results)</p>
+            </div>
+            <div id="resultsSort">
+              <select>
+                <option>Course Code</option>
+                <option>Course Name</option>
+                <option>University</option>
+                <option>Term</option>
+              </select>
+            </div>
+          </div>
 
           <div id="resultsTableWrapper">
           </div>

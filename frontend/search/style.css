@@ -11,7 +11,7 @@
   flex-direction: column;
 }
 
-#searchArea input {
+#searchArea input, #searchArea select {
   margin-right: 15px;
 }
 
@@ -21,6 +21,10 @@ p {
 
 h2 {
   margin-bottom: 5px;
+}
+
+.default {
+  color: grey;
 }
 
 #resultCount {
@@ -66,3 +70,12 @@ h2 {
 
 #resultsTable .row td:first-child { border-radius: var(--border-radius) 0 0 var(--border-radius); }
 #resultsTable .row td:last-child { border-radius: 0 var(--border-radius) var(--border-radius) 0; }
+
+#resultsHeader {
+  display: flex;
+  align-items: center;
+}
+
+#resultsHeader #resultsSort {
+  margin-left: 25px;
+}

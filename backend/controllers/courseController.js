@@ -56,7 +56,6 @@ exports.add_course = async function (req, res) {
         return
 };
 
-
 exports.list_all_courses = function (req, res) {
     Course.find({}, function (err, course) {
         if (err) res.send(err);

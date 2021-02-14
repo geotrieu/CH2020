@@ -1,6 +1,5 @@
-
 window.onload = function() {
-  const API_ENDPOINT = "http://localhost:3000";
+  const API_ENDPOINT = "http://localhost:3000/api";
   const COURSES_PATH = "courses";
   let data = [];
 
@@ -20,36 +19,26 @@ window.onload = function() {
   document.getElementById("searchButton").onclick = function() {
     let courseCode = document.getElementById("courseCode").value;
     let university = document.getElementById("uni").value;
-    let term = document.getElementById("term").value;
+    let term = document.getElementById("selectTerm").value;
 
     search(courseCode, university, term);
   }
 
+  setTermDropdown();
+
   function search(code, uni, term) {
-    console.log(`search for: ${code} ${uni} ${term}`);
-
-    // fetch(`${API_ENDPOINT}
-    //   courseName=${encodeURIComponent(name)}&
-    //   courseCode=${encodeURIComponent(code)}&
-    //   university=${encodeURIComponent(uni)}&
-    //   uploader=${encodeURIComponent(uploader)}`
-    // ).then(res => {
-    //   return res.json();
-    // }).then(data => {
-    //   updateTable(data);
-    // }).catch(e => {
-    //   console.error(e.message);
-    // });
-
-    let data = [{
-      id: 0,
-      courseName: 'math',
-      courseCode: '137',
-      university: 'Queens',
-      author: 'user#1234',
-      subscriptions: 100
-    }];
-    updateTable(data);
+    if (!code && !uni && term === 'Term') return;
+    
+    let vals = [encodeURIComponent(code).toLowerCase(), encodeURIComponent(uni).toLowerCase(), term];
+    vals = vals.filter(x => x).join('&');
+    fetch(`${API_ENDPOINT}/courses/${vals}`
+    ).then(res => {
+      return res.json();
+    }).then(data => {
+      setData(data);
+    }).catch(e => {
+      console.error(e.message);
+    });
   }
 
   function updateTable(data) {  
@@ -116,6 +105,40 @@ window.onload = function() {
         if (data[i].term) dest += `&term=${data[i].term}`;
 
         window.location = dest;
+      }
+    }
+  }
+
+  function setTermDropdown() {
+    let e = document.getElementById("selectTerm");
+    e.innerHTML = '';
+
+    let empty = document.createElement('OPTION');
+    empty.innerText = 'Term';
+    empty.selected = true;
+    e.appendChild(empty);
+
+    let seasons = ["Winter", "Spring", "Summer", "Fall"];
+
+    let seasonId = Math.floor(((new Date()).getMonth() + 1) / 4);
+    let curSeason = seasons[seasonId];
+    let year = (new Date()).getFullYear();
+    let nextSeason = (seasonId < 3) ? seasons[seasonId + 1] : seasons[0];
+    let nextYear = year + (seasonId == 3 ? 1 : 0);
+
+    let curOption = document.createElement('OPTION');
+    curOption.innerText = `${curSeason} ${year}`;
+    let nextOption = document.createElement('OPTION');
+    nextOption.innerText = `${nextSeason} ${nextYear}`;
+
+    e.appendChild(curOption);
+    e.appendChild(nextOption);
+
+    e.onchange = function() {
+      if (e.value === 'Term') {
+        e.classList.add('default');
+      } else {
+        e.classList.remove('default');
       }
     }
   }
