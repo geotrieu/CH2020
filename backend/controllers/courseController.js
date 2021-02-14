@@ -3,25 +3,26 @@ const { Assessment } = require("../models/assessmentModel");
 const Course = require("../models/courseModel");
 
 exports.list_all_course_entries = function (req, res) {
+    let re = new RegExp(req.params.courseCode, "i");
     let query = {
-        course_code: req.params.courseCode.toUpperCase()
+        course_code: re,
     };
 
-    if(req.query.university != undefined){
-        query.university_name = req.query.university;
+    if (req.query.university != undefined) {
+        re = new RegExp(req.query.university, "i");
+        query.university_name = re;
     }
-    if(req.query.term != undefined){
-        query.term = req.query.term;
+    if (req.query.term != undefined) {
+        re = new RegExp(req.query.term, "i");
+        query.term = re;
     }
     console.log(query);
-    
-    Course.find(
-        query,
-        function (err, course) {
-            if (err) res.send(err);
-            res.json(course);
-        }
-    );
+
+    Course.find(query, function (err, course) {
+        if (err) res.send(err);
+        console.log(course);
+        res.json(course);
+    });
 };
 
 function verify_course(body) {
