@@ -5,13 +5,13 @@ hr {
     border-color: var(--hover-color);
 }
 
-.autofillButton.active {
+#autofillButton {
     cursor: pointer;
 }
 
-.autofillButton.greyed {
+#autofillButton:disabled {
     cursor: not-allowed;
-    background-color: var(--grey);
+    opacity: 0.5;
 }
 
 .horizontal {

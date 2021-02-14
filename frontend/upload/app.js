@@ -11,14 +11,10 @@ window.onload = function () {
 
     document.getElementById("fileInputButton").onchange = function () {
         console.log("file!");
-        document
-            .getElementsByClassName("autofillButton")[0]
-            .setAttribute("class", "button autofillButton active");
+        document.getElementById("autofillButton").removeAttribute("disabled");
     };
 
-    document.getElementsByClassName(
-        "autofillButton"
-    )[0].onclick = async function () {
+    document.getElementById("autofillButton").onclick = async function () {
         const file = document.getElementById("fileInputButton").files[0];
         if (file != null) {
             const assessments = await postPDF(file);
