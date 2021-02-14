@@ -1,9 +1,12 @@
+const { Assessment } = require("../models/assessmentModel");
+const Course = require('../models/courseModel');
 
-exports.getICS = function(req, res) {
+exports.getICS = async function(req, res) {
     if(req.params.course != undefined){
-        let body = getCalendar(req.params);
+        let body = await getCalendar(req.params.course);
         if(body != null){
-            res.set("Content-Type", "text/calendar");
+            // TODO: Un-comment
+            // res.set("Content-Type", "text/calendar");
             res.send(body);
         } else {
             res.set("Content-Type", "text/html");
@@ -13,25 +16,6 @@ exports.getICS = function(req, res) {
         res.set("Content-Type", "text/html");
         res.send("Course ID not specified");
     }
-}
-
-/**
- * @type Course
- */
-var testData = {
-    id: 0,
-    code: "TEST123",
-    name: "Test course",
-    author: "Greg",
-    subscriptions: 5,
-    assignments: [
-        {
-            UUID: "asdfasdfadsf",
-            name: "Assignment 1",
-            timestamp: 1613352509000,
-            weight: 0.25
-        }
-    ]
 }
 
 /***
@@ -49,21 +33,27 @@ function getTimestamp(unix) {
 /**
  * Generate the ICS string from a specified course
  * @param {Course} course The course to use
+ * @param {Assignment[]} assesments The assesments for the course
  * @returns {string} String representation of calendar in ICS format
  */
-function generateCalendarString(course) {
+function generateCalendarString(course, assesments) {
+    console.log(course);
+    console.log(course.id);
+    console.log(course._id);
+    console.log(course.Course_code);
+    console.log(course.Course_name)
     let out = `BEGIN:VCALENDAR\nVERSION:2.0\n`;
-    out += `PRODID:~//CH2020-50//NONSGML TestCalendar-${course.id}//EN\n`;
-    out += `X-WR-CALNAME:${course.code} Calendar\n`
-    for (let assignment of course.assignments) {
-        console.log(assignment);
-        let timestamp = getTimestamp(assignment.timestamp);
+    out += `PRODID:~//CH2020-50//NONSGML ${course.Course_code}-${course.id}//EN\n`;
+    out += `X-WR-CALNAME:${course.Course_code} Calendar\n`
+    for (let assessment of assesments) {
+        console.log(assessment);
+        let timestamp = getTimestamp(assessment.date);
         out += `BEGIN:VEVENT\n`;
-        out += `UID:${assignment.UUID}\n`;
+        out += `UID:${assessment._id}\n`;
         out += `DTSTAMP:${timestamp}\n`;
         out += `DTSTART:${timestamp}\n`;
         out += `DTEND:${timestamp}\n`;
-        out += `SUMMARY:${assignment.name}\n`;
+        out += `SUMMARY:${assessment.item}\n`;
         out += `END:VEVENT\n`;
     }
     out += 'END:VCALENDAR';
@@ -75,6 +65,11 @@ function generateCalendarString(course) {
  * @param {string} id The id of the course
  * @returns {string} The ICS data as a string
  */
-function getCalendar(id){
-    return generateCalendarString(testData);
+async function getCalendar(id){
+    console.log(id);
+    let course = await Course.findById(id).exec();
+    let assesments = await Assessment.find({course:id}).exec();
+    console.log(course);
+    console.log(assesments);
+    return generateCalendarString(course, assesments);
 }
