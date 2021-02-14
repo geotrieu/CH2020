@@ -31,10 +31,19 @@ window.onload = function () {
 
     document.getElementById("autofillButton").onclick = async function () {
         document.getElementById("tableBody").innerHTML = "";
+        document.getElementById("courseName").value = "";
+        document.getElementById("courseCode").value = "";
+
         const file = document.getElementById("fileInputButton").files[0];
         if (file != null) {
-            const assessments = await postPDF(file);
-            assessments.forEach((a) => {
+            const data = await postPDF(file);
+            if (data.course != null) {
+                document.getElementById("courseName").value =
+                    data.course.courseTextBlock;
+                document.getElementById("courseCode").value =
+                    data.course.courseID;
+            }
+            data.assessments.forEach((a) => {
                 addNewRow(a.item, formatDate(a.date), a.weight);
             });
         }
