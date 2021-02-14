@@ -49,6 +49,6 @@ exports.addAssessment = function (req, res) {
 exports.getCourseAssessments = function (req, res) {
     Assessment.find({ course: req.params.courseId }, function (err, course) {
         if (err) res.send(err);
-        res.json(course);
+        else res.json(course);
     });
 };
