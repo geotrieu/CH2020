@@ -1,7 +1,7 @@
 window.onload = function() {
   let data = [];
   let order = 'asc';
-  const API_ENDPOINT = "http://localhost:3000";
+  const API_ENDPOINT = "http://localhost:3000/api";
   const COURSES_PATH = "courses";
 
   function setData(_data) {

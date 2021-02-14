@@ -1,15 +1,15 @@
 /**
  * @typedef  {object} Assignment
- * @property {string} UUID
- * @property {string} name
- * @property {numner} timestamp
+ * @property {string} _id
+ * @property {string} item
+ * @property {number} date
  * @property {number} weight
+ * @property {string} course
  * 
  * @typedef  {object} Course
- * @property {number} id
- * @property {string} code
- * @property {string} name
- * @property {string} author
- * @property {number} subscriptions
- * @property {Assignment[]} assignments
+ * @property {string} _id
+ * @property {string} course_code
+ * @property {string} course_name
+ * @property {string} University_name
+ * @property {number} Term
  */
