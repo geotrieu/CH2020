@@ -5,6 +5,8 @@ const express = require("express");
 app = express();
 port = process.env.PORT || 3000;
 
+app.use(express.json());
+
 require("./routes/routes")(app);
 
 mongoose.connect(
