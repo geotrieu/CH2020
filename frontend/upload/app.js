@@ -15,6 +15,45 @@ window.onload = function () {
 
     document.getElementById("submitButton").onclick = async function (e) {
         e.preventDefault();
+
+        //Validation
+        let nameRequired = document.getElementById("courseName").value != "";
+        let codeRequired = document.getElementById("courseCode").value != "";
+        let universityRequired =
+            document.getElementById("university").value != "";
+        let termRequired = document.getElementById("term").value != "";
+
+        if (!nameRequired) {
+            document.getElementById("courseName").classList.add("required");
+        } else {
+            document.getElementById("courseName").classList.remove("required");
+        }
+        if (!codeRequired) {
+            document.getElementById("courseCode").classList.add("required");
+        } else {
+            document.getElementById("courseCode").classList.remove("required");
+        }
+        if (!universityRequired) {
+            document.getElementById("university").classList.add("required");
+        } else {
+            document.getElementById("university").classList.remove("required");
+        }
+        if (!termRequired) {
+            document.getElementById("term").classList.add("required");
+        } else {
+            document.getElementById("term").classList.remove("required");
+        }
+
+        if (
+            !(
+                nameRequired &&
+                codeRequired &&
+                universityRequired &&
+                termRequired
+            )
+        )
+            return;
+
         let res = await submitCourse();
         let link = `${apiEndpoint}/ical/${res.course_id}`;
         showModal(link);
