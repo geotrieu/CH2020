@@ -30,6 +30,7 @@ window.onload = function () {
     };
 
     document.getElementById("autofillButton").onclick = async function () {
+        document.getElementById("tableBody").innerHTML = "";
         const file = document.getElementById("fileInputButton").files[0];
         if (file != null) {
             const assessments = await postPDF(file);
