@@ -1,3 +1,10 @@
+hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: var(--hover-color);
+  border-color: var(--hover-color);
+}
+
 .autofillButton {
   position: relative;
   cursor: pointer;
@@ -19,6 +26,79 @@
   flex-direction: row;
 }
 
+#headerFields input {
+  margin-right: 20px;
+}
+
 #formWrapper {
   flex: 1;
+}
+
+#assignmentsTableWrapper {
+  flex: 1;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+#assignmentsTable {
+  width: 100%;
+  padding: 10px;
+  border: none;
+}
+
+#assignmentsTable td, #assignmentsTable th {
+  text-align: left;
+  padding: 10px;
+}
+
+#assignmentsTable tr td:last-child, #assignmentsTable tr th:last-child {
+  width: 20px;
+}
+
+#assignmentsTable #addNew {
+  cursor: pointer;
+}
+
+#assignmentsTable #addNew:hover {
+  background-color: var(--hover-color);
+  border-radius: var(--border-radius);
+}
+
+#assignmentsTable #addNew td:first-child { border-radius: var(--border-radius) 0 0 var(--border-radius); }
+#assignmentsTable #addNew td:last-child { border-radius: 0 var(--border-radius) var(--border-radius) 0; }
+
+#assignmentsTable #addNewRow td {
+  text-align: center;
+}
+
+#assignmentsTable .tableInput {
+  box-shadow: none;
+  border: 2px solid var(--hover-color);
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+#assignmentsTable #deleteAll, #assignmentsTable .delete {
+  cursor: pointer;
+}
+
+#assignmentsTable .percent {
+  background: url(../assets/percent.svg) no-repeat scroll right 7px center;
+  padding-right: 34px;
+}
+
+#assignmentsTable .deadline {
+  width: 200px;
+}
+
+#assignmentsTable .weight {
+  width: 150px;
+}
+
+#submitWrapper {
+  margin-top: 20px;
+  cursor: pointer;
+  display: inline-block;
 }

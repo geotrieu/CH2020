@@ -38,25 +38,54 @@
             <input type="file" accept=".pdf" id="fileInputButton" />
           </div>
 
-          <div id="form">
-            <div>
-              <input type="text" id="courseName" placeholder="Course name" />
-              <input type="text" id="courseCode" placeholder="Course code" />
-              <input type="text" id="uni" placeholder="University" />
+          <hr width="100%" size="1px" />
+
+          <form>
+            <div id="form">
+              <div id="headerFields">
+                <input type="text" id="courseName" placeholder="Course name" />
+                <input type="text" id="courseCode" placeholder="Course code" />
+                <input type="text" id="uni" placeholder="University" />
+              </div>
+              
+              <div id="assignments">
+                <h2>Assignments</h2>
+
+                <div id="assignmentsTableWrapper">
+
+                  <table id="assignmentsTable" cellspacing=0>
+                    <tr>
+                      <th class="name">Name</th>
+                      <th class="deadline">Deadline</th>
+                      <th class="weight">Weight</th>
+                      <th><img src="../assets/trash.svg" id="deleteAll" /></th>
+                    </tr>
+
+                    <tbody id="tableBody">
+                    </tbody>
+
+                    <tr id="addNewRow">
+                      <td colspan="5" id="addNew">
+                        Add new
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
             </div>
-            
-            <div id="assignments">
-              <h2>Assignments</h2>
-              <table>
-                
-              </table>
+
+            <div id="submitWrapper">
+              <input type="submit" class="button" value="Generate calendar" />
             </div>
           </div>
-        </div>
+        </form>
+
         <div id="pdfViewer">
 
         </div>
       </div>
     </div>
+
+    <script src="app.js"></script>
   </body>
 </html>
